@@ -1,0 +1,54 @@
+# Maintainer: Cthulu201 <cthulu201@gmail.com>
+# Maintainer: Christopher Arndt <aur -at- chrisarndt -dot- de>
+
+_pkgname="mu"
+pkgname="${_pkgname}-editor"
+pkgver=1.0.3
+pkgrel=1
+groups=('mueditor')
+pkgdesc='A small, simple editor for beginner Python programmers'
+arch=('any')
+url='https://codewith.mu/'
+license=('GPL3')
+depends=('python-appdirs' 'python-gpiozero' 'python-guizero' 'python-matplotlib' 'python-nudatus'
+         'python-pigpio' 'python-pgzero' 'python-pycodestyle' 'python-pyflakes'
+         'python-pyqtchart>=5.11.3' 'python-pyserial' 'python-qscintilla-qt5' 'python-qtconsole'
+         'python-requests' 'python-semver' 'qt5-serialport')
+makedepends=('gendesk' 'python-setuptools')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mu-editor/mu/archive/${pkgver}.tar.gz"
+        'webbrowser-issue31014.diff')
+sha512sums=('c56f6850417a57e1277197761660d86f00550fa6399664d007517c8930c8ccca3e3fabe6a1c9f3083d2fee731c2669c8bd7b5619f9e16beaa5e008905c964735'
+            '64f2a858299960ed9eecf73d70654d7b10678b21414d0142c9e66632f167cc24396d737fffe58eb31abc5075182ced19f6c57429b70779ea84f60fa00153c7b9')
+
+
+prepare() {
+  cd "${srcdir}/${_pkgname}-${pkgver}"
+  # python-pyqt5 and python-qscintilla are not python-setuptools compatible
+  # the dependencies are handled by the package
+  sed -i -e "s/'pyqt5==[0-9.]*',//" -e "s/'qscintilla==[0-9.]*',//" setup.py
+  # Un-pin all other dependencies, so package doesn't break when a dependency is updated
+  sed -i -e 's/==/>=/g' setup.py
+  patch -Np1 -i "${srcdir}/webbrowser-issue31014.diff"
+}
+
+build() {
+  cd "${srcdir}/${_pkgname}-${pkgver}"
+  python setup.py build
+  gendesk -f -n \
+    --pkgname="${pkgname}" \
+    --pkgdesc="${pkgdesc}" \
+    --name=Mu \
+    --genericname=Code Editor \
+    --categories="Application;Development;TextEditor" \
+    --exec="${pkgname}" \
+    --terminal=false \
+    --startupnotify=true \
+    --mimetypes="text/x-python;text/x-python3"
+}
+
+package() {
+  cd "${srcdir}/${_pkgname}-${pkgver}"
+  python setup.py install --root="${pkgdir}/" -O1
+  install -Dm644 "${pkgname}.desktop" -t "${pkgdir}/usr/share/applications"
+  install -Dm644 conf/mu.codewith.editor.png "${pkgdir}/usr/share/pixmaps/mu-editor.png"
+}

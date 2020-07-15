@@ -1,0 +1,29 @@
+# Maintainer: Cthulu201 <cthulu201@gmail.com>
+# Maintainer: Christopher Arndt <aur -at- chrisarndt -dot- de>
+
+_pkgname='nudatus'
+pkgname="python-${_pkgname}"
+pkgver=0.0.4
+pkgrel=1
+groups=('mueditor')
+pkgdesc="A tool to remove comments from Python scripts"
+url="https://github.com/zanderbrown/nudatus"
+depends=('python')
+makedepends=('python-setuptools')
+license=('MIT')
+arch=('any')
+source=("https://files.pythonhosted.org/packages/source/${_pkgname::1}/${_pkgname}/${_pkgname}-${pkgver}.tar.gz")
+sha512sums=('ab43eb673b70e8cf74e61892bddfd4f89608e2251c05bb0c2a72dac09282b602a8817462be08e752d1083e4fe722d67cd2cd024b27db25f86834f67bb2569b74')
+
+
+build() {
+  cd "${srcdir}/${_pkgname}-${pkgver}"
+  python setup.py build
+}
+
+package() {
+  cd "${srcdir}/${_pkgname}-${pkgver}"
+
+  python setup.py install --root="${pkgdir}" -O1 --skip-build
+  install -Dm644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+}

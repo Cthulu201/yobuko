@@ -1,0 +1,26 @@
+# Maintainer: Cthulu201 <cthulu201@gmail.com>
+# Maintainer: Christopher Arndt <aur -at- chrisarndt -dot- de>
+
+_pkgname='pgzero'
+pkgname="python-${_pkgname}"
+pkgver=1.2
+pkgrel=1
+groups=('mueditor')
+pkgdesc="A zero-boilerplate 2D games framework"
+url="http://pypi.python.org/pypi/pgzero"
+depends=('python-numpy' 'python-pygame')
+makedepends=('python-setuptools')
+license=('GPL')
+arch=('any')
+source=("https://files.pythonhosted.org/packages/source/${_pkgname::1}/${_pkgname}/${_pkgname}-${pkgver}.tar.gz")
+sha512sums=('365a19ba17ed5021ce8547d4ba8cbe8b91a7eaeb0adc858fbce272592ba83f99f051fca7f5fe11283826d86d6bd8819d14a2986175367b7d5f5a1c74c27e284d')
+
+build() {
+    cd "${srcdir}/${_pkgname}-${pkgver}"
+    python setup.py build
+}
+
+package() {
+    cd "${srcdir}/${_pkgname}-${pkgver}"
+    python setup.py install --root="${pkgdir}" -O1 --skip-build
+}

@@ -1,0 +1,28 @@
+# Maintainer: Cthulu201 <cthulu201@gmail.com>
+# Maintainer: Christopher Arndt <aur -at- chrisarndt -dot- de>
+
+_pkgname=colorzero
+pkgname="python-${_pkgname}"
+pkgver=1.1
+pkgrel=1
+groups=('mueditor')
+pkgdesc="A color manipulation library for Python"
+arch=('any')
+url="https://${_pkgname}.readthedocs.org/"
+license=('BSD')
+depends=('python')
+makedepends=('python-setuptools')
+source=("https://files.pythonhosted.org/packages/source/${_pkgname::1}/${_pkgname}/${_pkgname}-${pkgver}.tar.gz")
+sha512sums=('646c6a97ec28e84b9399f609033e55aab3c7c0d6dfb78723e2a53524725594c2129d1948a20e600bbc29dd4b89d9175e3c6dc3ed1d53be7347a22ef4bb8613a0')
+
+
+build() {
+  cd "${srcdir}/${_pkgname}-${pkgver}"
+  python setup.py build
+}
+
+package_python-colorzero() {
+  cd "${srcdir}/${_pkgname}-${pkgver}"
+  python setup.py install --root="${pkgdir}" --skip-build -O1
+  install -Dm644 LICENSE.txt -t "${pkgdir}/usr/share/licenses/${pkgname}"
+}
