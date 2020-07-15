@@ -4,8 +4,7 @@
 _pkgname='pgzero'
 pkgname="python-${_pkgname}"
 pkgver=1.2
-pkgrel=1
-groups=('mueditor')
+pkgrel=2
 pkgdesc="A zero-boilerplate 2D games framework"
 url="http://pypi.python.org/pypi/pgzero"
 depends=('python-numpy' 'python-pygame')

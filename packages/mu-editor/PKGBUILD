@@ -4,8 +4,8 @@
 _pkgname="mu"
 pkgname="${_pkgname}-editor"
 pkgver=1.0.3
-pkgrel=1
-groups=('mueditor')
+pkgrel=2
+groups=('project_alpha' 'project_alpha-editors')
 pkgdesc='A small, simple editor for beginner Python programmers'
 arch=('any')
 url='https://codewith.mu/'

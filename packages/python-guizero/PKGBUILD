@@ -4,8 +4,7 @@
 _pkgname='guizero'
 pkgname="python-${_pkgname}"
 pkgver=1.1.0
-pkgrel=1
-groups=('mueditor')
+pkgrel=2
 pkgdesc="Library to allow learners to quickly and easily create GUIs"
 url="https://github.com/lawsie/guizero"
 depends=('python-pillow' 'tk')

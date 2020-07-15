@@ -3,7 +3,8 @@
 _pkgname="pycharm"
 pkgname="${_pkgname}-professional"
 pkgver=2020.1.2
-pkgrel=1
+pkgrel=2
+groups=('project_alpha' 'project_alpha-editors')
 pkgdesc="Python IDE for Professional Developers. Professional Edition"
 arch=('x86_64')
 url='https://www.jetbrains.com/pycharm/'
