@@ -2,8 +2,8 @@
 
 _pkgname="pycharm"
 pkgname="${_pkgname}-professional"
-pkgver=2020.1.2
-pkgrel=2
+pkgver=2020.2
+pkgrel=1
 groups=('project_alpha' 'project_alpha-editors')
 pkgdesc="Python IDE for Professional Developers. Professional Edition"
 arch=('x86_64')
@@ -23,7 +23,7 @@ source=("https://download.jetbrains.com/python/${pkgname}-${pkgver}.tar.gz"
         "charm.desktop"
         "charm"
         "PyCharm_Reference_Card.pdf")
-sha512sums=('2ae316b50e086d3f0497f4a2f95cebfe67f4db00633f9988177f7c3957fd6ff3aea5273961bbd3761fe63a09e13e151c36a7db7bf7f876e27fbf5903f46164c0'
+sha512sums=('9d65e75465bdb5192213b5b1bfc93044e865d38492beeb0bdbcccac147d0171e433eb0130b66b3daf06b05ea622285a5068f31e5e4c40c3865f12731231df039'
             '7eb569a85b5bbd620e264ac545ae02b1784a0d4296203d4a57a0d15216e526888ced471ae8734c8d24f710bf1ca688fcf64388cc0ef8f19f3019a384ae79bfad'
             'abe93aafc17990c856db6e3ee78e474429f0124cc8d0702db90caff2761a28b0c68f1ddc1c57a326e84fe78a14eb9e4acbfb0d8a845bb8af30f4e8f018e10a2d'
             '8db4d6fee525ee110a7a5403d30ed5a7aede63eae5f0ac3f86cd64600ff2ae20a6649ea8c12b54dffed43001e142af8c1a4e870821dc943810f41a2437d1c660'
