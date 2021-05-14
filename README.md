@@ -6,10 +6,10 @@
 
 ```
 yobuko
-|-- archives
-|-- configs
-|-- PKGBUILDs
-|-- pkgs
+|-- archive
+|-- config
+|-- PKGBUILD
+|-- pkg
 
 4 directories
 ```
