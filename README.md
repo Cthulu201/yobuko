@@ -1,3 +1,15 @@
-# yobuko Repository stuffs
+# Cthulu201's yobuko Repository
 
-This repo contains many things
+## Personal repository
+
+### Repository Structure
+
+```
+yobuko
+|-- archives
+|-- configs
+|-- PKGBUILDs
+|-- pkgs
+
+4 directories
+```
