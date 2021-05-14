@@ -6,10 +6,13 @@
 
 ```
 yobuko
-|-- archive
-|-- config
-|-- PKGBUILD
-|-- pkg
+|-- /archive
+|-- /config
+|-- /logs
+|-- /PKGBUILD
+|-- /pkg
+|-- .gitignore
+|-- README.md
 
-4 directories
+5 directories
 ```
