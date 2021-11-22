@@ -1,0 +1,27 @@
+# Maintainer: Cthulu201 <cthulu201@duck.com>
+
+pkgname=anaconda
+pkgver=2021.11
+pkgrel=1
+pkgdesc="Package manager, an environment manager, a Python/R data science distribution"
+arch=('x86_64')
+url='https://www.anaconda.com/'
+license=("BSD")
+groups=('yobuko')
+source=("https://repo.anaconda.com/archive/Anaconda3-${pkgver}-Linux-x86_64.sh")
+depends=('libxau' 'libxi' 'libxss' 'libxtst' 'libxcursor' 'libxcomposite'
+         'libxdamage' 'libxfixes' 'libxrandr' 'libxrender' 'mesa-libgl'
+         'alsa-lib' 'libglvnd')
+options=(!strip libtool staticlibs)
+sha512sums=('f38b3ffc5d8bccbbb1b9c0538bc608043013c41a1be32b3992b12bf043f7ef0c0cd75469b7dc672f9b544d1095cd7896de5fa8aabd60f2cccaec1dd07a638baa')
+
+package() {
+  cd "${srcdir}"
+  LD_PRELOAD="/usr/lib/libfakeroot/libfakeroot.so"
+  bash ./"Anaconda3-${pkgver}-Linux-${CARCH}.sh" -b -p "${pkgdir}/opt/${pkgname}" -f
+  [ "$BREAK_EARLY" = 1 ] && exit 1
+  chmod a+r -R "${pkgdir}/opt/${pkgname}/pkgs"
+  sed -e "s|${pkgdir}||g" -i $(grep "${pkgdir}" "${pkgdir}/opt/${pkgname}" -rIl 2>/dev/null)
+  echo 'apps = {}' >> "${pkgdir}/opt/${pkgname}/lib/python3.9/site-packages/anaconda_navigator/api/external_apps/__init__.py"
+  install -D -m644 "${pkgdir}/opt/${pkgname}/LICENSE.txt" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.txt"
+}

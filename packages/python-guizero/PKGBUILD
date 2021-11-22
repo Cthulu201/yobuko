@@ -1,0 +1,28 @@
+# Maintainer: Cthulu201 <cthulu201@duck.com>
+
+_pkgname='guizero'
+pkgname="python-${_pkgname}"
+pkgver=1.2.0
+pkgrel=2
+pkgdesc="Library to allow learners to quickly and easily create GUIs"
+arch=('any')
+url="https://github.com/lawsie/guizero"
+license=('BSD')
+depends=('python-pillow' 'tk')
+makedepends=('python-setuptools')
+source=("https://files.pythonhosted.org/packages/source/${_pkgname::1}/${_pkgname}/${_pkgname}-${pkgver}.tar.gz"
+        'https://raw.githubusercontent.com/lawsie/guizero/master/license.txt')
+sha512sums=('d6a684549c8cbc7b16754c282f4b195bd1774cafcf9214cc394a92f8b7cf3aedd8df603902870d573889b76e9233f185315870d9d0f9777065de1c3f9bfc4561'
+            '25a2f265b374df842fb2cf528fa69094a3424d61bc82caf6fc0fcf7076d709561973b5769baf7488449d5385bb40046138d8d378d6b7ec7384e3fe7f5f882b15')
+
+
+build() {
+    cd "${srcdir}/${_pkgname}-${pkgver}"
+    python setup.py build
+}
+
+package() {
+    cd "${srcdir}/${_pkgname}-${pkgver}"
+    python setup.py install --root="${pkgdir}" -O1 --skip-build
+    install -Dm644 "${srcdir}/license.txt" -t "${pkgdir}/usr/share/licenses/${pkgname}"
+}

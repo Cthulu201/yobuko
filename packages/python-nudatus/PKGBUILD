@@ -1,0 +1,27 @@
+# Maintainer: Cthulu201 <cthulu201@duck.com>
+
+_pkgname='nudatus'
+pkgname="python-${_pkgname}"
+pkgver=0.0.5
+pkgrel=3
+pkgdesc="A tool to remove comments from Python scripts"
+arch=('any')
+url="https://github.com/zanderbrown/nudatus"
+license=('MIT')
+depends=('python')
+makedepends=('python-setuptools')
+source=("https://files.pythonhosted.org/packages/source/${_pkgname::1}/${_pkgname}/${_pkgname}-${pkgver}.tar.gz")
+sha512sums=('8627b0ffb9cbbecd3c5a48196523a3d8998913205a47f7cacbf9dd447b5f1ac59adeab5c87da5b7ae8be879faefa475bdfdef24ac3c778652a94199f7b32cf33')
+
+
+build() {
+  cd "${srcdir}/${_pkgname}-${pkgver}"
+  python setup.py build
+}
+
+package() {
+  cd "${srcdir}/${_pkgname}-${pkgver}"
+
+  python setup.py install --root="${pkgdir}" -O1 --skip-build
+  install -Dm644 LICENSE -t "${pkgdir}/usr/share/licenses/${pkgname}"
+}

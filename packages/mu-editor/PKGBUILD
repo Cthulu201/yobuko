@@ -1,0 +1,45 @@
+# Maintainer: Cthulu201 <cthulu201@duck.com>
+
+pkgname=mu-editor
+pkgver=1.0.3
+pkgrel=2
+pkgdesc='A small, simple editor for beginner Python programmers'
+arch=('any')
+url='https://codewith.mu/'
+license=('GPL3')
+depends=('pigpio' 'python-appdirs' 'python-gpiozero' 'python-guizero'
+         'python-matplotlib' 'python-nudatus' 'python-pgzero'
+         'python-pycodestyle' 'python-pyflakes' 'python-pyqt5-chart>=5.15'
+         'python-pyserial' 'python-qscintilla-qt5' 'python-qtconsole'
+         'python-requests' 'python-semver' 'qt5-serialport')
+makedepends=('gendesk' 'python-setuptools')
+source=("${pkgname}-${pkgver}.tar.gz::https://github.com/mu-editor/mu/archive/${pkgver}.tar.gz")
+sha512sums=('c56f6850417a57e1277197761660d86f00550fa6399664d007517c8930c8ccca3e3fabe6a1c9f3083d2fee731c2669c8bd7b5619f9e16beaa5e008905c964735')
+
+
+prepare() {
+  cd "${srcdir}/mu-${pkgver}"
+  sed -i -e 's/==/>=/g' setup.py
+}
+
+build() {
+  cd "${srcdir}/mu-${pkgver}"
+  python setup.py build
+  gendesk -f -n \
+    --pkgname="${pkgname}" \
+    --pkgdesc="${pkgdesc}" \
+    --name=Mu \
+    --genericname=Code Editor \
+    --categories="Application;Development;TextEditor" \
+    --exec="${pkgname}" \
+    --terminal=false \
+    --startupnotify=true \
+    --mimetypes="text/x-python;text/x-python3"
+}
+
+package() {
+  cd "${srcdir}/mu-${pkgver}"
+  python setup.py install --root="${pkgdir}/" -O1 --skip-build
+  install -Dm644 "${pkgname}.desktop" -t "${pkgdir}/usr/share/applications"
+  install -Dm644 conf/mu.codewith.editor.png "${pkgdir}/usr/share/pixmaps/mu-editor.png"
+}

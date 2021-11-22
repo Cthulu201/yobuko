@@ -1,0 +1,50 @@
+# Maintainer: Cthulu201 <cthulu201@duck.com>
+
+_pkgname="pycharm"
+pkgname="${_pkgname}-professional"
+pkgver=2021.2.3
+pkgrel=2
+pkgdesc="Python IDE for Professional Developers. Professional Edition"
+arch=('x86_64')
+url='https://www.jetbrains.com/pycharm/'
+license=('custom')
+groups=('yobuko')
+depends=('python')
+makedepends=('python-setuptools' 'cython')
+optdepends=('python2:           For Python 2 development'
+            'ipython:           For enhanced interactive Python shell inside Pycharm'
+            'openssh:           For deployment and remote connections'
+            'python-setuptools: Packages manager for Python, for project interpreter'
+            'python-coverage:   For support code coverage measurement'
+            'cython:            For performance debugger'
+            'docker-machine:    For support docker inside Pycharm'
+            'docker-compose:    For support docker inside Pycharm'
+            'vagrant:           For support virtualized development environments'
+            'python-pytest:     For support testing inside Pycharm'
+            'python-tox:        Python environments for testing tool'
+            'jupyter-notebook:  For support Jupyter Notebook')
+provides=('pycharm-professional')
+conflicts=('pycharm' 'pycharm-community-edition')
+source=("https://download.jetbrains.com/python/${pkgname}-${pkgver}.tar.gz")
+sha512sums=('90e1be2b71d3fab3bb52edf5b499a0bd4971fac4cda2b4a23e99dfa522dea82b489261a52b68cdf1a1e34904ab5976506072457a2c391ad70bb7443394624f0e')
+
+build() {
+  cd "${srcdir}/${_pkgname}-${pkgver}/lib/pty4j-native/linux/"
+  find . -maxdepth 1 -not -path . -type d -not -name 'x86-64' -exec rm -rf {} \;
+}
+
+package() {
+  cd "${srcdir}/${_pkgname}-${pkgver}"
+  # Install directories
+  install -dm 755 "${pkgdir}/usr/share/licenses/${pkgname}/"
+  install -dm 755 "${pkgdir}/opt/${pkgname}"
+  install -dm 755 "${pkgdir}/usr/bin/"
+
+  # Install licenses
+  mv "license/"* "${pkgdir}/usr/share/licenses/${pkgname}/"
+  rmdir "license"
+
+  # Setup executable
+  cp -a ./* "${pkgdir}/opt/${pkgname}/"
+  ln -s "/opt/${pkgname}/bin/${_pkgname}.sh" "${pkgdir}/usr/bin/${pkgname}"
+}

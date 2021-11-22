@@ -1,0 +1,43 @@
+# Maintainer: Cthulu201 <cthulu201@duck.com>
+
+_pkgname=visual-studio-code
+pkgname=visual-studio-code-bin
+pkgver=1.62.2
+pkgrel=2
+pkgdesc="Visual Studio Code IDE for building and debugging modern web and cloud applications"
+arch=('x86_64')
+url="https://code.visualstudio.com/"
+license=('custom: commercial')
+groups=('yobuko')
+provides=('code' 'vscode')
+conflicts=('code')
+# lsof: needed for terminal splitting, see https://github.com/Microsoft/vscode/issues/62991
+# xdg-utils: needed for opening web links with xdg-open
+depends=(libxkbfile gnupg gtk3 libsecret nss gcc-libs libnotify libxss glibc lsof shared-mime-info xdg-utils)
+optdepends=('glib2: Needed for move to trash functionality'
+            'libdbusmenu-glib: Needed for KDE global menu'
+            'org.freedesktop.secrets: Needed for settings sync')
+source=("code_x64_${pkgver}.tar.gz::https://update.code.visualstudio.com/${pkgver}/linux-x64/stable"
+        "visual-studio-code-workspace.xml")
+sha512sums=('231781b47d4bbed48a3b88fe9a1924964c865b0a057f8bca1f6cca338d425e40e36c882293eb0a2e64990dcdce2c9bd39c2d236c9eae4ce48ea255fcecd15ad3'
+            'c0457f5f9dcba59d8c8b85bb12aeafc682419c488d3c7a332fcc4edb6d6062e48ce8a1ed09c0447e20275a2e8001d26ea3b61545025426d66d3093e37db6a7c9')
+
+package() {
+  _pkg=VSCode-linux-x64
+  install -d "${pkgdir}/usr/share/licenses/${_pkgname}"
+  install -d "${pkgdir}/opt/${_pkgname}"
+  install -d "${pkgdir}/usr/bin"
+  install -d "${pkgdir}/usr/share/applications"
+  install -d "${pkgdir}/usr/share/icons" 
+  install -d "${pkgdir}/usr/share/mime/packages"
+
+  install -m644 "${srcdir}/${_pkg}/resources/app/LICENSE.rtf" "${pkgdir}/usr/share/licenses/${_pkgname}/LICENSE.rtf"
+  install -m644 "${srcdir}/${_pkg}/resources/app/resources/linux/code.png" "${pkgdir}/usr/share/icons/${_pkgname}.png"
+  install -m644 "${srcdir}/${_pkgname}-workspace.xml" "${pkgdir}/usr/share/mime/packages/${pkgname}-workspace.xml"
+  install -Dm 644 "${srcdir}/${_pkg}/resources/completions/bash/code" "${pkgdir}/usr/share/bash-completion/completions/code"
+  install -Dm 644 "${srcdir}/${_pkg}/resources/completions/zsh/_code" "${pkgdir}/usr/share/zsh/site-functions/_code"
+
+  cp -r "${srcdir}/${_pkg}/"* "${pkgdir}/opt/${_pkgname}" -R
+  ln -s /opt/${_pkgname}/bin/code "${pkgdir}"/usr/bin/code
+}
+
