@@ -9,7 +9,7 @@ yobuko
 |-- /archive
 |-- /config
 |-- /logs
-|-- /PKGBUILD
+|-- /packages
 |-- /pkg
 |-- .gitignore
 |-- README.md
