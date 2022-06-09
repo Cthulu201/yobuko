@@ -16,4 +16,3 @@ pacman -S archstrike-mirrorlist --noconfirm
 
 # Configure pacman to use the mirrorlist
 sed -i 's|Server = https://mirror.archstrike.org/\$arch/\$repo|Include = /etc/pacman.d/archstrike-mirrorlist|' /etc/pacman.conf
-pacman -Syy
