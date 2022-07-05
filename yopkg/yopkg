@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+# Variables
+funcpath="$(pwd)/functions"
+
+# Import functions
+. "${funcpath}/test.func"
+
+case "$1" in
+  dump)
+      . "${funcpath}/dump.func"
+      [ -z "$2" ] && yopkg_error_dump
+      asdump "$2"
+      ;;
+  update)
+      . "${funcpath}/update.func"
+      [ -z "$2" ] && yopkg_error_dump
+      [ "$2" = git ] && cupgit
+      [ "$2" = chroot ] && cupchroot
+      ;;
+  chroot)
+      . "${funcpath}/chroot.func"
+      [ "$2" = build ] && build
+      [ "$2" = update ] && update
+      ;;
+  *)
+      echo "Nothing provided"
+esac
+
+

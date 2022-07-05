@@ -1,0 +1,3 @@
+Server = https://mirror.math.princeton.edu/pub/archlinux32/$arch/$repo
+Server = https://32.arlm.tyzoid.com/$arch/$repo
+Server = https://archlinux32.andreasbaumann.cc/$arch/$repo

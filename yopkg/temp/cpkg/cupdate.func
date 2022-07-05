@@ -1,0 +1,62 @@
+cupgit () {
+  # Variables
+  local cgitpath="${HOME}/dev/git"
+  
+  cgitrepos=(
+  "ArchStrike"
+  "cmgr"
+  "pacman-config"
+  )
+  
+  cgiturls=(
+  "git@github.com:ArchStrike/ArchStrike.git"
+  "git@github.com:Cthulu201/cmgr.git"
+  "git@github.com:ArchStrike/pacman-config.git"
+  )
+  
+  x_count=0
+  
+  # Fresh screen
+  clear
+  
+  # Show repositories to be updated
+  echo -e "**** Updating the ${#cgitrepos[*]} following git repositories: ****\n"
+  for list_repo in ${cgitrepos[*]}
+  do
+      echo "${x_count} ${list_repo}"
+      ((++x_count))
+  done
+  
+  # Reset counter
+  x_count=0
+  
+  # Update git repositories
+  for repo in ${cgitrepos[*]}
+  do
+    if [[ -d "${cgitpath}/${repo}" ]]; then
+      echo -e "\n\n    ******** Updating ${repo} repository ********"
+      cd "${cgitpath}/${repo}" || exit
+      git status
+      git pull
+    else
+      cd "${cgitpath}" || exit
+      echo -e "\n\n    ******** Cloning ${repo} repository ********"
+  #    echo "git clone ${cgiturls[x_count]} ${cgitrepos[x_count]}"
+      git clone "${cgiturls[x_count]}" "${cgitrepos[x_count]}"
+    fi
+    ((++x_count))
+  done
+  
+  echo -e "\n\n **** Git repositories updated ****\n\n"
+  
+  exit 0
+}
+
+cupchroot () {
+  # Variables
+  local carch="$(uname -m)"
+
+  [ "${carch}" = "x86_64" ] && echo "x86_64 and i686"
+
+  exit 0
+}

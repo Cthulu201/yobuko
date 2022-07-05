@@ -1,0 +1,15 @@
+!#/usr/bin/bash
+
+for arch in i686 x86_64 armv6 armv7 aarch64; do
+    if [[ -e /home/mike/dev/chroot/${arch} ]]; then
+        printf '%s\n' "chroot/${arch} already exists"
+    else
+        rm /var/cache/pacman/pkg/*
+        install -dm755 /home/mike/dev/chroot/${arch}
+        mkarchroot -C /root/pacman-config/${arch}/pacman.conf -M /root/pacman-config/${arch}/makepkg.conf /home/mike/dev/chroot/${arch}/root base-devel
+        [[ -d /home/mike/dev/chroot/i686 ]] && install -Dm644 mirrorlist-32 "/home/mike/dev/chroot/i686/root/pacman.d/"
+        sed -i 's|^#Server|Server|' /home/mike/dev/chroot/${arch}/root/etc/pacman.d/mirrorlist
+    fi
+done
+
+sed -i 's|mirrorlist-32|mirrorlist|g' /home/mike/dev/chroot/i686/root/etc/pacman.conf

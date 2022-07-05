@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# Variables
+funcpath="${HOME}/dev/cmgr/cpkg"
+
+# Import functions
+. "${funcpath}/cerror.func"
+
+# What to do if no CLI arguments are passed
+#[ -z "$1" ] && { echo "Failure"; exit 1; }
+
+case "$1" in
+
+	dump)
+        . "${funcpath}/asdump.func"
+        [ -z "$2" ] && cmgr_error_dump
+		asdump "$2"
+		;;
+    update)
+        . "${funcpath}/cupdate.func"
+        [ -z "$2" ] && cmgr_error_dump
+        [ "$2" = git ] && cupgit
+        [ "$2" = chroot ] && cupchroot
+        ;;
+	*)
+		cmgr_error1
+esac

@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Test for correct pkg repo and copy files
+# to working directory
+ASGIT="${HOME}/dev/git/ArchStrike"
+ASMAIN="archstrike"
+ASPKG=$1
+
+echo "Cleaning work directory"
+rm -rf <path>/*
+
+if [[ -e ${ASGIT}/${ASMAIN}/${ASPKG} ]]; then
+  ASALL=${ASGIT}/${ASMAIN}/${ASPKG}
+  ASREPO=${ASMAIN}
+  cp ${ASALL}/* $HOME/dev/dump/
+  echo "export ASGIT=${HOME}/dev/git/ArchStrike" > ~/dev/asvars
+  echo "export ASMAIN=archstrike" >> ~/dev/asvars
+  echo "export ASTEST=archstrike-testing" >> ~/dev/asvars
+  echo "export ASPKG=$1" >> ~/dev/asvars
+  echo "export ASALL=${ASGIT}/${ASMAIN}/${ASPKG}" >> ~/dev/asvars
+elif [[ -e $HOME/dev/git/ArchStrike/archstrike-testing/$1 ]]; then
+    cp $HOME/dev/git/ArchStrike/archstrike-testing/$1/* $HOME/dev/dump/
+    ASREPO=${ASTEST}
+    ASPKG=$1
+    ASALL=/home/mike/dev/git/ArchStrike/${ASTEST}/${ASPKG}
+    echo "export ASALL=/home/mike/dev/git/ArchStrike/${ASTEST}/${ASPKG}" > ~/dev/asvars
+else
+    echo -e "\n\nPackage $1 doesn't exist in either repo'\n\n"
+fi
+echo -e "Current package: \t${ASPKG}"
+echo -e "Current repo: \t\t${ASREPO}"
+ls -al

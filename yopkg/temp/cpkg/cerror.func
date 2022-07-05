@@ -1,0 +1,22 @@
+cmgr_error1 () {
+  echo -e "cmgr BETA ( https://cthulu201.github.io/ )\n\n"
+  echo -e "Usage: cmgr COMMAND [Options]\n\n"
+  echo "COMMANDS:"
+  echo "dump: copies package files into working directory"
+  echo "update: updates package repositories"
+  exit 1
+}
+
+cmgr_error_dump () {
+  echo -e "cmgr BETA ( https://cthulu201.github.io/ )\n\n"
+  echo -e "Usage: cmgr dump <pkgname>\n\n"
+  exit 1
+}
+
+cmgr_error_update () {
+  echo -e "cmgr BETA ( https://cthulu201.github.io/ )\n\n"
+  echo -e "Usage: cmgr update <pkgname>\n\n"
+  exit 1
+}
+
+

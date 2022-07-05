@@ -1,0 +1,30 @@
+asdump () {
+  # Function variables
+  ASPKG="$1"
+  echo "Cleaning work directory"
+  rm -rf "${HOME}"/dev/dump/*
+  
+  if [[ -e "${CGIT}/${ASMAIN}/${ASPKG}" ]]; then
+    ASALL="${CGIT}/${ASMAIN}/${ASPKG}"
+    ASREPO="${ASMAIN}"
+    cp "${ASALL}"/* "${HOME}"/dev/dump/
+    {
+    echo "export CGIT=${HOME}/dev/git/ArchStrike"
+    echo "export ASMAIN=archstrike"
+    echo "export ASTEST=archstrike-testing"
+    echo "export ASPKG=$1"
+    echo "export ASALL=${CGIT}/${ASMAIN}/${ASPKG}"
+    } > ~/dev/asvars
+  elif [[ -e "${HOME}/dev/git/ArchStrike/archstrike-testing/$1" ]]; then
+      cp "${HOME}/dev/git/ArchStrike/archstrike-testing/$1/*" "${HOME}"/dev/dump/
+      ASREPO="${ASTEST}"
+      ASPKG="$1"
+      ASALL="/home/mike/dev/git/ArchStrike/${ASTEST}/${ASPKG}"
+      echo "export ASALL=/home/mike/dev/git/ArchStrike/${ASTEST}/${ASPKG}" > ~/dev/asvars
+  else
+      echo -e "\n\nPackage $1 doesn't exist in either repo'\n\n"
+  fi
+  echo -e "Current package: \t${ASPKG}"
+  echo -e "Current repo: \t\t${ASREPO}"
+  ls -al
+}

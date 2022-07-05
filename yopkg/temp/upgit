@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+# Variables
+gitpath="${HOME}/dev/git"
+
+gitrepos=(
+"<repo_name>"
+)
+
+giturls=(
+"<repo_path> <options, ie: --branch x86_64-support"
+)
+
+x_count=0
+
+# Fresh screen
+clear
+
+# Show repositories to be updated
+echo -e "**** Updating the ${#gitrepos[*]} following git repositories: ****\n"
+for list_repo in ${gitrepos[*]}
+do
+    echo "${x_count} ${list_repo}"
+    ((++x_count))
+done
+
+# Reset counter
+x_count=0
+
+# Update git repositories
+for repo in ${gitrepos[*]}
+do
+  if [[ -d "${gitpath}/${repo}" ]]; then
+    echo -e "\n\n    ******** Updating ${repo} repository ********"
+    cd "${gitpath}/${repo}" || exit
+    git status
+    git pull
+  else
+    cd "${gitpath}" || exit
+    echo -e "\n\n    ******** Cloning ${repo} repository ********"
+#    echo "git clone ${giturls[x_count]} ${gitrepos[x_count]}"
+    git clone "${giturls[x_count]}" "${gitrepos[x_count]}"
+  fi
+  ((++x_count))
+done
+
+echo -e "\n\n **** Git repositories updated ****\n\n"
+
+exit 0

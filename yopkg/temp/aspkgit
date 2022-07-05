@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Load ArchStrike Variables
+source ~/dev/asvars
+
+# Test if pkg script was ran by testing for PKGBUILDs in both directorys
+if [[ -e /home/mike/dev/dump/PKGBUILD && -e ${ASALL}/PKGBUILD ]]; then
+  # Get checksums
+  ASREPOPKG=$(md5sum ${ASALL}/PKGBUILD | sed -e 's/ .*$//')
+  ASWORKPKG=$(md5sum /home/mike/dev/dump/PKGBUILD | sed -e 's/ .*$//')
+  # Compare checksums for git update or work on PKGBUILD
+  if [[ ${ASWORKPKG} != ${ASREPOPKG} ]]; then
+    echo "PKGBUILDs are different"
+#    ASPKGVER=$(grep 'pkgver=' /home/mike/dev/dump/PKGBUILD | sed -e 's/pkgver=//')
+#    cd ${ASGIT}
+    cp <workdir_path>/PKGBUILD ${ASALL}
+#    git status
+#    git add ${ASALL}/PKGBUILD
+#    git commit -m "Update ${ASPKG} to ${ASPKGVER}"
+#    git push
+  else 
+    echo "PKGBUILDs are the same"
+    echo "Please run pkg <archstrike_pkg_name> and update"
+  fi
+  # Test if variables are populated
+  echo "work ${ASWORKPKG}"
+  echo "repo ${ASREPOPKG}"
+  echo "pkg ${ASPKG}"
+  echo "pkgver $(grep 'pkgver=' <workdir_path>/PKGBUILD | sed -e 's/pkgver=//')"
+  git status
+else
+    echo "Missing PKGBUILD"
+fi

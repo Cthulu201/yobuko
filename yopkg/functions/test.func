@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+yoconfigpath=".config/yopkg"
+
+# Test for config
+astestconf () {
+  if [[ -d "${HOME}/.config" ]]; then
+    if [[ -d "${HOME}/${yoconfigpath}" ]]; then
+      if [[ -f "${HOME}/${yoconfigpath}/yopkg.conf" ]]; then
+        echo "yopkg is properly configured"
+      else
+        read -p "yopkg.conf doesn't exist. Create? (y/N)" yopkgcreate
+        case ${yopkgcreate} in
+          [nN])
+            echo 'You selected "n".'
+            exit 0
+            ;;
+          [yY])
+            echo 'You selected "y". Creating yopkg.conf'
+            cp "$(pwd)/yopkg.conf" "${HOME}/${yopkgconfig}"
+            ;;
+          *)
+            echo 'Error: nothing was selected'
+            exit 1
+            ;;
+        esac
+      fi
+    else
+      read -p "yopkg directory and yopkg.conf doesn't exist. Create? (y/N)" yopkgcreate
+      case ${yopkgcreate} in
+        [nN])
+          echo 'You selected "n".'
+          exit 0
+          ;;
+        [yY])
+          echo 'You selected "y". Installing yopkg.conf'
+          mkdir "${HOME}/${yoconfigpath}"
+          cp "$(pwd)/yopkg.conf" "${HOME}/${yoconfigpath}/"
+          ;;
+        *)
+          echo 'Error: nothing was selected'
+          exit 1
+          ;;
+      esac
+    fi
+  else
+    echo "Directory isn't there"
+    read -p "yopkg directory and yopkg.conf doesn't exist. Create? (y/N)" yopkgcreate
+    case ${yopkgcreate} in
+      [nN])
+        echo 'You selected "n".'
+        exit 0
+        ;;
+      [yY])
+        echo 'You selected "y". Installing yopkg.conf'
+        mkdir "${HOME}/.config" "${HOME}/${yoconfigpath}"
+        cp "$(pwd)/yopkg.conf" "${HOME}/${yoconfigpath}/"
+        ;;
+      *)
+        echo 'Error: nothing was selected'
+        exit 1
+        ;;
+    esac
+  fi
+}
