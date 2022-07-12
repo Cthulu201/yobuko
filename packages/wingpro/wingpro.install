@@ -1,7 +1,5 @@
 post_install() {
   /opt/wingpro/resources/linux/desktop/install-linux-desktop.sh --install
-  # Fix libcrypt.so.1 error
-  ln -s "/usr/lib/libcrypt.so.2.0.0" "/usr/lib/libcrypt.so.1"
 }
 
 post_upgrade() {

@@ -2,17 +2,17 @@
 
 pkgname="wingpro"
 pkgver=8.3.2.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Wing IDE Professional is the full-featured Python IDE for professional programmers."
 arch=('x86_64')
 url="http://www.wingware.com"
 license=('custom')
 groups=('yobuko')
-depends=('python' 'libxcrypt' 'xdg-utils' 'qt5-svg' 'libxcb' 'perl' 'java-runtime')
+depends=('python' 'libxcrypt-compat' 'xdg-utils' 'qt5-svg' 'libxcb' 'perl' 'java-runtime')
 source=("https://wingware.com/pub/wingpro/${pkgver}/wingpro-${pkgver}-linux-x64.tar.bz2"
         "wingpro.install")
 sha512sums=('7972060af66557d2d378e9f14a537ee9a8d1790c912ce8a41b6c8cb7f909b3406feb953fbec65aec3066d58dede8b063fd5c2c26f3cefa2c5cfabf4c2d2dca87'
-            '7ca46a1fad5aee13ed168fe67f5198113dc48d3aed1545f3951b1f6b2947e773825ce7943a977e687ca2ad72bdf70ce0772c0f1b650fb93ab488f5b74bbb4b89')
+            '003df3f0928ec119cade7cd04b6815fa01c2a41f764efce6d5ba143199da735da815892fa8c4dcb3a5ede27fc790caf7b74710563d84550b438b3a39fcdab310')
 options=("!strip")
 
 package() {

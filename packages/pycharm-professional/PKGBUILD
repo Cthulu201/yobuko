@@ -2,8 +2,8 @@
 
 _pkgname="pycharm"
 pkgname="${_pkgname}-professional"
-pkgver=2021.2.3
-pkgrel=2
+pkgver=2022.1.3
+pkgrel=1
 pkgdesc="Python IDE for Professional Developers. Professional Edition"
 arch=('x86_64')
 url='https://www.jetbrains.com/pycharm/'
@@ -26,7 +26,7 @@ optdepends=('python2:           For Python 2 development'
 provides=('pycharm-professional')
 conflicts=('pycharm' 'pycharm-community-edition')
 source=("https://download.jetbrains.com/python/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('90e1be2b71d3fab3bb52edf5b499a0bd4971fac4cda2b4a23e99dfa522dea82b489261a52b68cdf1a1e34904ab5976506072457a2c391ad70bb7443394624f0e')
+sha512sums=('cf32d6a704f9b81206b3b8fbf93f37438d971f434df4ebf1fb59dcf3be2357258fca6829c94a93722b21287064e2be602e1e455b47fde7cabee032fcadcabc30')
 
 build() {
   cd "${srcdir}/${_pkgname}-${pkgver}/lib/pty4j-native/linux/"
