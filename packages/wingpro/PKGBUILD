@@ -1,0 +1,38 @@
+# Maintainer: Cthulu201 <cthulu201@duck.com>
+
+pkgname="wingpro"
+pkgver=8.3.2.0
+pkgrel=2
+pkgdesc="Wing IDE Professional is the full-featured Python IDE for professional programmers."
+arch=('x86_64')
+url="http://www.wingware.com"
+license=('custom')
+groups=('yobuko')
+depends=('python' 'libxcrypt' 'xdg-utils' 'qt5-svg' 'libxcb' 'perl' 'java-runtime')
+source=("https://wingware.com/pub/wingpro/${pkgver}/wingpro-${pkgver}-linux-x64.tar.bz2"
+        "wingpro.install")
+sha512sums=('7972060af66557d2d378e9f14a537ee9a8d1790c912ce8a41b6c8cb7f909b3406feb953fbec65aec3066d58dede8b063fd5c2c26f3cefa2c5cfabf4c2d2dca87'
+            '7ca46a1fad5aee13ed168fe67f5198113dc48d3aed1545f3951b1f6b2947e773825ce7943a977e687ca2ad72bdf70ce0772c0f1b650fb93ab488f5b74bbb4b89')
+options=("!strip")
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}-linux-x64"
+  ./wing-install.py \
+  --install-binary \
+  --winghome "${pkgdir}/opt/${pkgname}" \
+  --bin-dir "${pkgdir}/usr/bin"
+  
+  sed -i "s|${pkgdir}||" "${pkgdir}/opt/${pkgname}/wingdbstub.py"
+  sed -i "s|${pkgdir}||" "${pkgdir}/opt/${pkgname}/wing"
+  sed -i "s,${pkgdir},,g" "${pkgdir}/opt/${pkgname}/file-list.txt"
+  
+  # Copy over patch (if any)
+  if [ -d ../patches ]; then
+      cp -r ../patches ${pkgdir}/opt/${pkgname}/.
+  fi
+
+  chmod +x ${pkgdir}/opt/${pkgname}/resources/linux/desktop/install-linux-desktop.sh
+ 
+  # Install the LICENSE
+  install -D -m 644 "${pkgdir}/opt/${pkgname}/LICENSE.txt" "${pkgdir}/usr/share/licenses/${pkgpname}/LICENSE"
+}
