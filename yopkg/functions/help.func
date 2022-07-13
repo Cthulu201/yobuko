@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+printf "\nyopkg 0.0.1\n\n"
+
+printf "Usage: yopkg [command] [sub-command]\n\n"
+
+printf "Commands (sub-commands):\n"
+printf "    test (chroot, config)\n"
+printf "    pkg (get, build)\n"
+printf "    chroot (build, update)\n\n"

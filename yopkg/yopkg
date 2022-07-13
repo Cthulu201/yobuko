@@ -3,17 +3,14 @@
 # Variables
 funcpath="$(pwd)/functions"
 
-# Import functions
-. "${funcpath}/test.func"
-
 case "$1" in
-  dump)
-      . "${funcpath}/dump.func"
+  test)
+      . "${funcpath}/test.func"
       [ -z "$2" ] && yopkg_error_dump
-      asdump "$2"
+      yodump "$2"
       ;;
-  update)
-      . "${funcpath}/update.func"
+  pkg)
+      . "${funcpath}/pkg.func"
       [ -z "$2" ] && yopkg_error_dump
       [ "$2" = git ] && cupgit
       [ "$2" = chroot ] && cupchroot
@@ -24,7 +21,5 @@ case "$1" in
       [ "$2" = update ] && update
       ;;
   *)
-      echo "Nothing provided"
+      . "${funcpath}/help.func"
 esac
-
-
