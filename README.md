@@ -11,6 +11,7 @@ yobuko
 |-- /logs
 |-- /packages
 |-- /pkg
+|-- /rhino
 |-- /scripts
 |-- .gitignore
 |-- README.md
