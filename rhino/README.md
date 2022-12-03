@@ -1,12 +1,15 @@
-# My Privacy & Security Notes
+# Rhino
+Why Rhino? There are a lot of reasons. Besides being one of my favorite animals, and a Spider-Man fan, to me they have a spirituality of resilience and strength.
 
-## I donate to:
+## My Privacy & Security Notes
+
+### I donate to:
 Arch Linux<br />
 Arch Linux | ARM<br />
 Thunderbird<br />
 
-## What I'm Testing:
-### The point of testing is nothing lasts forever, like OpenKeychain. I eventually want to settle with something without having to change every year, or so, and donate to.
+### What I'm Testing:
+**The point of testing is nothing lasts forever, like OpenKeychain. I eventually want to settle with something without having to change every year, or so, and donate to.**
 Pass<br />
 WireGuard<br />
 K-9 &emsp;*Uses OpenKeychain*<br />
@@ -16,8 +19,8 @@ Keybase<br />
 Brave<br />
 Vivaldi<br />
 
-## What I'm Using:
-### What I believe are lasting sources
+### What I'm Using:
+**What I believe are lasting sources**
 Samsung Galaxy Z Fold3 &emsp;*I'm done ROMing phones that get dropped every few years*<br />
 
 Arch Linux<br />
