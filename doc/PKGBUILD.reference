@@ -1,0 +1,51 @@
+# Maintainer: Your Name <youremail@domain.com>
+# https://gitlab.archlinux.org/pacman/pacman/raw/master/proto/PKGBUILD.proto
+# https://man.archlinux.org/man/PKGBUILD.5
+
+pkgbase
+pkgname=("NAME")
+pkgver=VERSION
+pkgrel=1
+epoch=
+pkgdesc=""
+arch=()
+url=""
+license=('GPL')
+groups=()
+depends=()
+makedepends=()
+checkdepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=("${pkgname}-${pkgver}.tar.gz"
+        "${pkgname}-${pkgver}.patch")
+noextract=()
+sha512sums=()
+validpgpkeys=()
+
+prepare() {
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	patch -p1 -i "${srcdir}/${pkgname}-${pkgver}.patch"
+}
+
+build() {
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	./configure --prefix=/usr
+	make
+}
+
+check() {
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	make -k check
+}
+
+package() {
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	make DESTDIR="${pkgdir}" install
+}
