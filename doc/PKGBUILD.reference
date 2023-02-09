@@ -2,7 +2,7 @@
 # https://gitlab.archlinux.org/pacman/pacman/raw/master/proto/PKGBUILD.proto
 # https://man.archlinux.org/man/PKGBUILD.5
 
-pkgbase
+pkgbase=()
 pkgname=("NAME")
 pkgver=VERSION
 pkgrel=1
