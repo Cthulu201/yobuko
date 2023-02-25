@@ -1,0 +1,36 @@
+# Maintainer: Cthulu201 <cthulu201@duck.com>
+
+_pkgname="RubyMine"
+pkgname="rubymine"
+pkgver=2022.3.2
+pkgrel=2
+pkgdesc="Ruby and Rails IDE with the full stack of essential developer tools"
+arch=('x86_64')
+url=https://www.jetbrains.com/ruby/
+license=(custom)
+groups=('yobuko')
+depends=(desktop-file-utils gtk-update-icon-cache)
+optdepends=('ruby: Ruby run/debug support')
+source=(https://download.jetbrains.com/ruby/${_pkgname}-${pkgver}.tar.gz)
+sha512sums=('8bfc4c757a134129c266934cba2a70e5260036f2c8c796738e88082516c3a25a15b326d3d0e835de2919fe30bc241d3f72a943c743403de686310e2afd2d0205')
+
+build() {
+  cd "${srcdir}/${_pkgname}-${pkgver}/lib/pty4j/linux/" || exit
+  find . -maxdepth 1 -not -path . -type d -not -name 'x86-64' -exec rm -rf {} \;
+}
+
+package() {
+  cd "${srcdir}/${_pkgname}-${pkgver}" || exit
+  # Install director(y/ies)
+  install -dm0755 "${pkgdir}/usr/share/licenses/${pkgname}/"
+  install -dm0755 "${pkgdir}/opt/${pkgname}"
+  install -dm0755 "${pkgdir}/usr/bin/"
+
+  # Install license(s)
+  mv "license/"* "${pkgdir}/usr/share/licenses/${pkgname}/"
+  rmdir "license"
+
+  # Setup executable(s)
+  cp -a ./* "${pkgdir}/opt/${pkgname}/"
+  ln -s "/opt/${pkgname}/bin/${pkgname}.sh" "${pkgdir}/usr/bin/${pkgname}"
+}

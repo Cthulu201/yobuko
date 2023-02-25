@@ -1,0 +1,43 @@
+# Maintainer: Cthulu201 <cthulu201@duck.com>
+# Contributor: Runnytu < runnytu at gmail dot com >
+# OldMaintainer: Alexey Kharlamov <der@2-47.ru>
+# Contributor: David Dufberg Tøttrup <david at dufberg dot se>
+# Contributor: Jordi De Groof <jordi(dot)degroof(at)gmail(dot)com>
+# Contributor: pyther <pyther@pyther.net>
+# Contributor: z3ntu <WEI16416@spengergasse.at>
+
+pkgname=packettracer
+pkgver=8.2.0
+pkgrel=3
+pkgdesc="Cisco PacketTracer 7.3.1 installation package"
+arch=('x86_64')
+url="https://www.netacad.com/courses/packet-tracer"
+license=('custom')
+groups=('yobuko')
+depends=('openssl>=1.0' 'dbus' 'icu' 'glib2' 'libxml2' 'libjpeg-turbo' 'nss' 'libxss' 'java-runtime>=1.7.0')
+options=('!strip' '!emptydirs')
+source=('CiscoPacketTracer_820_Ubuntu_64bit.deb'
+        'packettracer.sh')
+sha512sums=('7e1c64af03d3bd99ed627d66e221094f80a28a87229ddb9ae5b98a5e38e28f45dfdd7ecc31e7253b17c11b7124c183125063c2a8e13bfb139cae6dd184b49226'
+            '639947d7a388ff3c787c359504295c6890de763ee61edd04c6dde3913a1bf49c3e2c91cfadadc759169da4d72f09fe6493a35c56d9fd6de0443ae9e9140b8f5f')
+
+package() {
+  cd "${srcdir}" || exit
+  tar xf data.tar.xz -C "${pkgdir}"
+  chown -R 0:0 "${pkgdir}"
+  mv "${pkgdir}/opt/pt/" "${pkgdir}/opt/packettracer/"
+  mkdir -p "${pkgdir}/usr/bin/"
+  find "${pkgdir}" -type d -exec chmod 755 {} \;
+  find "${pkgdir}/opt/packettracer/help/" -type d -exec chmod 777 {} \;
+  find "${pkgdir}/opt/packettracer/saves/" -type d -exec chmod 555 {} \;
+  find "${pkgdir}/opt/packettracer/art/html/network_controller/" -type d -exec chmod 775 {} \;
+  find "${pkgdir}/opt/packettracer/art/RackView/CablePegboard/" -type d -exec chmod 775 {} \;
+  find "${pkgdir}/opt/packettracer/bin/xcbglintegrations/" -type d -exec chmod 775 {} \;
+  find "${pkgdir}/opt/packettracer/help/default/NetconRestAPI/" -type d -exec chmod 775 {} \;
+  ln -s "/opt/packettracer/packettracer" "${pkgdir}/usr/bin/packettracer"
+  ln -s "/usr/lib/libdouble-conversion.so" "${pkgdir}/opt/packettracer/bin/libdouble-conversion.so.1"
+  sed -i 's|/opt/pt|/opt/packettracer|' "${pkgdir}/opt/packettracer/linguist" "${pkgdir}/opt/packettracer/packettracer" "${pkgdir}/usr/share/applications/cisco-pt.desktop" "${pkgdir}/usr/share/applications/cisco-ptsa.desktop"
+  sed -i -e "\$aCategories=Network;" "${pkgdir}/usr/share/applications/cisco-pt.desktop" "${pkgdir}/usr/share/applications/cisco-ptsa.desktop"
+  install -Dm0755 "${srcdir}/packettracer.sh" "${pkgdir}/etc/profile.d/packettracer.sh"
+  install -Dm0644 "${pkgdir}/opt/packettracer/help/default/copyrights.htm" "${pkgdir}/usr/share/licenses/${pkgname}/COPYRIGHT"
+}

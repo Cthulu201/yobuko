@@ -1,0 +1,44 @@
+# Maintainer: Cthulu201 <cthulu201@duck.com>
+# Contributor: D. Can Celasun <can[at]dcc[dot]im>
+
+_pkgname=visual-studio-code
+pkgname=visual-studio-code-bin
+pkgver=1.75.1
+pkgrel=3
+pkgdesc="Visual Studio Code IDE for building and debugging modern web and cloud applications"
+arch=('x86_64')
+url="https://code.visualstudio.com/"
+license=('custom: commercial')
+groups=('yobuko')
+provides=('code' 'vscode')
+conflicts=('code')
+depends=('libxkbfile' 'gnupg' 'gtk3' 'libsecret' 'nss' 'gcc-libs' 'libnotify' 'libxss' 'glibc' 'lsof' 'shared-mime-info' 'xdg-utils')
+optdepends=('glib2:                   Needed for move to trash functionality'
+            'libdbusmenu-glib:        Needed for KDE global menu'
+            'org.freedesktop.secrets: Needed for settings sync')
+source=("code_x64_${pkgver}.tar.gz::https://update.code.visualstudio.com/${pkgver}/linux-x64/stable"
+        "visual-studio-code-workspace.xml")
+sha512sums=('68498083c022252a4cecf7db505a68e25137eed3451af474cff7a1094340d64b087ca101df8cb5af5649bcd6460e219eb28f1c78604864dd40507c809e6edcc7'
+            'c0457f5f9dcba59d8c8b85bb12aeafc682419c488d3c7a332fcc4edb6d6062e48ce8a1ed09c0447e20275a2e8001d26ea3b61545025426d66d3093e37db6a7c9')
+
+package() {
+  _pkg=VSCode-linux-x64
+  # Install director(y/ies)
+  install -dm0755 "${pkgdir}/usr/share/licenses/${pkgname//-bin/""}"
+  install -dm0755 "${pkgdir}/opt/${pkgname//-bin/""}"
+  install -dm0755 "${pkgdir}/usr/bin"
+  install -dm0755 "${pkgdir}/usr/share/applications"
+  install -dm0755 "${pkgdir}/usr/share/icons" 
+  install -dm0755 "${pkgdir}/usr/share/mime/packages"
+
+  # Install file(s)
+  install -m0644 "${srcdir}/${_pkg}/resources/app/LICENSE.rtf" "${pkgdir}/usr/share/licenses/${_pkgname}/LICENSE.rtf"
+  install -m0644 "${srcdir}/${_pkg}/resources/app/resources/linux/code.png" "${pkgdir}/usr/share/icons/${_pkgname}.png"
+  install -m0644 "${srcdir}/${pkgname//-bin/""}-workspace.xml" "${pkgdir}/usr/share/mime/packages/${pkgname}-workspace.xml"
+  install -Dm0644 "${srcdir}/${_pkg}/resources/completions/bash/code" "${pkgdir}/usr/share/bash-completion/completions/code"
+  install -Dm0644 "${srcdir}/${_pkg}/resources/completions/zsh/_code" "${pkgdir}/usr/share/zsh/site-functions/_code"
+
+  cp -r "${srcdir}/${_pkg}/"* "${pkgdir}/opt/${_pkgname}" -R
+  ln -s "/opt/${pkgname//-bin/""}/bin/code" "${pkgdir}/usr/bin/code"
+}
+

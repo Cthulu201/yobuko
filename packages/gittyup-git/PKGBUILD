@@ -1,0 +1,94 @@
+# Maintainer: Cthulu201 <cthulu201@duck.com>
+# Contributor: Caleb Maclennan <caleb@alerque.com>
+# Contributor: Fabio 'Lolix' Loli <lolix@disroot.org>
+# Contributor: Tim Schumacher <timschumi@gmx.de>
+# Contributor: KillWolfVlad <github.com/KillWolfVlad>
+# Contributor: WaveHack <email@wavehack.net>
+# Contributor: Whovian9369 <Whovian9369@gmail.com>
+# Contributor: Angelo Theodorou <encelo@gmail.com>
+
+_pkgname="gittyup"
+pkgname=${_pkgname}-git
+pkgver=1.2.2
+pkgrel=4
+pkgdesc='A graphical Git client designed to help you understand and manage your source code history'
+url="https://github.com/Murmele/${_pkgname^}"
+arch=(x86_64)
+license=(MIT)
+groups=('yobuko')
+depends=('cmark' 'git' 'hunspell' 'libssh2' 'lua' 'lua-lpeg' 'openssl' 'qt5-base')
+makedepends=('cmake' 'libgnome-keyring' 'ninja' 'qt5-tools' 'qt5-translations')
+optdepends=('git-lfs:          git-lfs support'
+            'libgnome-keyring: for GNOME Keyring for auth credentials'
+            'qt5-translations: translations')
+source=("git+${url}.git#tag=${_pkgname}_v${pkgver}"
+        "${_pkgname}-libgit2::git+https://github.com/stinb/libgit2.git" # a fork, not the official upstream!
+        "${_pkgname}-scintillua::git+https://github.com/orbitalquark/scintillua.git"
+        "${_pkgname}-lexilla::git+https://github.com/ScintillaOrg/lexilla.git"
+        "${_pkgname}-zip::git+https://github.com/kuba--/zip.git")
+sha512sums=('SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP'
+            'SKIP')
+
+prepare() {
+  cd "${srcdir}/${_pkgname^}" || exit
+  git submodule init
+  git config submodule.dep/cmark/cmark.update none
+  git config submodule.dep/git/git.update none
+  git config submodule.dep/hunspell/hunspell.update none
+  git config submodule.dep/libssh2/libssh2.update none
+  git config submodule.dep/openssl/openssl.update none
+  git config submodule.dep/libgit2/libgit2.url "${srcdir}/${_pkgname}-libgit2"
+  git config submodule.dep/scintillua/lexilla.url "${srcdir}/${_pkgname}-lexilla"
+  git config submodule.dep/scintillua/scintillua.url "${srcdir}/${_pkgname}-scintillua"
+  git config submodule.test/dep/zip.url "${srcdir}/${_pkgname}-zip"
+  git -c protocol.file.allow=always submodule update
+}
+
+build() {
+  cd "${srcdir}" || exit
+  cmake \
+  	-G Ninja \
+  	-W no-dev \
+  	-D CMAKE_BUILD_TYPE=Release \
+  	-D CMAKE_INSTALL_PREFIX=/usr \
+  	-D CMAKE_INSTALL_DATADIR=share/${pkgname} \
+  	-D ENABLE_REPRODUCIBLE_BUILDS=ON \
+  	-D BUILD_SHARED_LIBS=OFF \
+  	-D DEBUG_OUTPUT=OFF \
+  	-D USE_SYSTEM_CMARK=ON \
+  	-D USE_SYSTEM_GIT=ON \
+  	-D USE_SYSTEM_HUNSPELL=ON \
+  	-D USE_SYSTEM_LIBSSH2=ON \
+  	-D USE_SYSTEM_LUA=ON \
+  	-D USE_SYSTEM_OPENSSL=ON \
+  	-D LUA_MODULES_PATH=/usr/lib/lua/5.4 \
+  	-B build \
+  	-S "${_pkgname^}"
+  ninja -C build
+}
+
+check() {
+  cd "${srcdir}" || exit
+  ninja -C build check
+}
+
+package() {
+  cd "${srcdir}" || exit
+  install -Dm0644 "${_pkgname^}/LICENSE.md" "${pkgdir}/usr/share/licenses/${pkgname//-git/""}/LICENSE"
+  DESTDIR="${pkgdir}" ninja -C build install
+  pushd "${pkgdir}/usr" || exit
+  mkdir -p bin
+  mv ${_pkgname^} bin/${pkgname//-git/""}
+  rm -f ./*.so.*
+  mv indexer relauncher "share/${pkgname}"
+  local _icons="Resources/${_pkgname^}.iconset"
+  install -Dm0644 "$_icons/gittyup_logo.svg" "${pkgdir}/usr/share/icons/hicolor/scalable/apps/gittyup.svg"
+  for s in 16x16 32x32 64x64 128x128 256x256 512x512; do
+    install -Dm0644 "$_icons/icon_16x16.png" "${pkgdir}/usr/share/icons/hicolor/16x16/apps/gittyup.png"
+  	install -Dm0644 "$_icons/icon_$s.png" "${pkgdir}/usr/share/icons/hicolor/$s/apps/${pkgname//-git/""}.png"
+  done
+  rm -rf {include,lib,Plugins,Resources}
+}

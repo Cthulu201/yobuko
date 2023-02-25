@@ -1,0 +1,37 @@
+# Maintainer: Cthulu201 <cthulu201@duck.com>
+# Contributor: lsf <lsf at pfho dot net>
+
+pkgname=librewolf-bin
+provides=("${pkgname//-bin/""}")
+conflicts=("${pkgname//-bin/""}")
+replaces=("${pkgname//-bin/""}")
+pkgver=110.0
+pkgrel=2
+pkgdesc="Community-maintained fork of Firefox, focused on privacy, security and freedom."
+arch=(x86_64)
+license=(MPL GPL LGPL)
+groups=('yobuko')
+url="https://librewolf-community.gitlab.io/"
+depends=('gtk3' 'libxt' 'startup-notification' 'mime-types' 'dbus-glib'
+         'nss' 'ttf-font' 'libpulse' 'ffmpeg')
+optdepends=('networkmanager:    Location detection via available WiFi networks'
+            'libnotify:         Notification integration'
+            'pulseaudio:        Audio support'
+            'speech-dispatcher: Text-to-Speech'
+            'hunspell-en_US:    Spell checking, American English')
+validpgpkeys=('031F7104E932F7BD7416E7F6D2845E1305D6E801')
+backup=('usr/lib/librewolf/librewolf.cfg'
+        'usr/lib/librewolf/distribution/policies.json')
+options=(!emptydirs)
+install='librewolf-bin.install'
+
+_project_id=12875785
+source=("https://gitlab.com/api/v4/projects/${_project_id}/packages/generic/${pkgname//-bin/""}/${pkgver}-${pkgrel}/${pkgname//-bin/""}-${pkgver}-${pkgrel}-x86_64.pkg.tar.zst"
+        "https://gitlab.com/api/v4/projects/${_project_id}/packages/generic/${pkgname//-bin/""}/${pkgver}-${pkgrel}/${pkgname//-bin/""}-${pkgver}-${pkgrel}-x86_64.pkg.tar.zst.sig")
+sha512sums=('b28e732fb58557f497cb3f84e4b0c42ae023f9f750a117e9b1184af2452c96c1a4f02a3af0ba6bf28ba2e18b1c27e78afd53e43170a10d1c49248b32532503e1'
+            'SKIP')
+
+package() {
+  cd "${srcdir}" || exit
+  cp -r ./usr "${pkgdir}/"
+}

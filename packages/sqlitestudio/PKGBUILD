@@ -1,0 +1,26 @@
+# Maintainer: Cthulu201 <cthulu201@duck.com>
+
+pkgname=("sqlitestudio")
+_pkgname=SQLiteStudio
+pkgver=3.4.3
+pkgrel=4
+pkgdesc='Database manager for SQLite'
+arch=('x86_64')
+url='https://github.com/pawelsalawa/sqlitestudio'
+license=('GPL3')
+groups=('yobuko')
+depends=('tcl' 'readline')
+makedepends=('libarchive')
+source=("${url}/releases/download/${pkgver}/${pkgname}-${pkgver}.tar.xz")
+sha512sums=('e0e12b2cced7eab137c75101c46507a7b233749902a6a5598a458918ffdfb641f0c8c4d629314187ecfe1224df793ed438be2b874abddca30ff94bd30ebe25b3')
+
+package(){
+  cd "${srcdir}" || exit
+  install -dm0755 "${pkgdir}/opt/${pkgname}"
+  install -dm0755 "${pkgdir}/usr/bin"
+  cp -a "${_pkgname}/"* "${pkgdir}/opt/${pkgname}/"
+
+  cd "${pkgdir}" || exit
+  ln -sf "/opt/${pkgname}/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
+  ln -sf "/opt/${pkgname}/${pkgname}cli" "${pkgdir}/usr/bin/${pkgname}cli"
+}

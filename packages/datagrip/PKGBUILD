@@ -1,0 +1,38 @@
+# Maintainer: Cthulu201 <cthulu201@duck.com>
+
+_pkgname="DataGrip"
+pkgname="datagrip"
+pkgver=2022.3.3
+pkgrel=3
+pkgdesc="A database management environment for developers"
+arch=('x86_64')
+url="https://www.jetbrains.com/datagrip"
+license=(custom)
+groups=('yobuko')
+depends=(desktop-file-utils gtk-update-icon-cache)
+optdepends=('mariadb:    Fast SQL database server derived from MySQL'
+            'postgresql: Sophisticated object-relational DBMS'
+            'sqlite:     A C library that implements an SQL database engine')
+source=("https://download.jetbrains.com/datagrip/${pkgname}-${pkgver}.tar.gz")
+sha512sums=('dd47f7bf19dd90e49ec43f8cc26f77d7897cf5d4fca25f1cae2972c81c6aaeca2b50acf4565c6743ea598fbc2372ced47aa2c2bbdcd59aba97ea3f376951e5b3')
+
+build() {
+  cd "${srcdir}/${_pkgname}-${pkgver}/lib/pty4j/linux/" || exit
+  find . -maxdepth 1 -not -path . -type d -not -name 'x86-64' -exec rm -rf {} \;
+}
+
+package() {
+  cd "${srcdir}/${_pkgname}-${pkgver}" || exit
+  # Install director(y/ies)
+  install -dm0755 "${pkgdir}/usr/share/licenses/${pkgname}/"
+  install -dm0755 "${pkgdir}/opt/${pkgname}"
+  install -dm0755 "${pkgdir}/usr/bin/"
+
+  # Install license(s)
+  mv "license/"* "${pkgdir}/usr/share/licenses/${pkgname}/"
+  rmdir "license"
+
+  # Setup executable(s)
+  cp -a ./* "${pkgdir}/opt/${pkgname}/"
+  ln -s "/opt/${pkgname}/bin/${pkgname}.sh" "${pkgdir}/usr/bin/${pkgname}"
+}

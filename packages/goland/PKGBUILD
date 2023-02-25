@@ -1,0 +1,36 @@
+# Maintainer: Cthulu201 <cthulu201@duck.com>
+
+_pkgname="GoLand"
+pkgname="goland"
+pkgver=2022.3.2
+pkgrel=2
+pkgdesc="Capable and Ergonomic Go IDE"
+arch=('x86_64')
+url='https://www.jetbrains.com/go/'
+license=(custom)
+groups=('yobuko')
+depends=('glib2')
+options=('!strip')
+source=("https://download.jetbrains.com/go/${pkgname}-${pkgver}.tar.gz")
+sha512sums=('b6de81b07f1594318ba910682cdb378606a19286726b467dc92e8f91554f730f9021674027ff2ac8723bb5ea684942527cf33d308cb8913f5759b47e725494bc')
+
+build() {
+  cd "${srcdir}/${_pkgname}-${pkgver}/lib/pty4j/linux/" || exit
+  find . -maxdepth 1 -not -path . -type d -not -name 'x86-64' -exec rm -rf {} \;
+}
+
+package() {
+  cd "${srcdir}/${_pkgname}-${pkgver}" || exit
+  # Install director(y/ies)
+  install -dm0755 "${pkgdir}/usr/share/licenses/${pkgname}/"
+  install -dm0755 "${pkgdir}/opt/${pkgname}"
+  install -dm0755 "${pkgdir}/usr/bin/"
+
+  # Install license(s)
+  mv "license/"* "${pkgdir}/usr/share/licenses/${pkgname}/"
+  rmdir "license"
+
+  # Setup executable(s)
+  cp -a ./* "${pkgdir}/opt/${pkgname}/"
+  ln -s "/opt/${pkgname}/bin/${pkgname}.sh" "${pkgdir}/usr/bin/${pkgname}"
+}

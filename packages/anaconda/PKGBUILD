@@ -1,0 +1,35 @@
+# Maintainer: Cthulu201 <cthulu201@duck.com>
+# Contributor: Jingbei Li <i@jingbei.li>
+# Contributor: Carlos Aznarán <caznaranl@uni.pe>
+# Contributor: kastik <kastik69420@gmail.com>
+# Contributor: Ismaël Bouya <ismael.bouya@normalesup.org>
+# Contributor: Martin Wimpress <code@flexion.org>
+
+pkgname=anaconda
+pkgver=2022.10
+pkgrel=5
+pkgdesc="Package manager, an environment manager, a Python/R data science distribution"
+arch=('x86_64')
+url='https://www.anaconda.com/'
+license=("BSD")
+groups=('yobuko')
+source=("https://repo.anaconda.com/archive/Anaconda3-${pkgver}-Linux-x86_64.sh")
+depends=('libxau' 'libxi' 'libxss' 'libxtst' 'libxcursor' 'libxcomposite'
+         'libxdamage' 'libxfixes' 'libxrandr' 'libxrender' 'mesa-libgl'
+         'alsa-lib' 'libglvnd')
+options=(!strip libtool staticlibs)
+sha512sums=('a0f17c8bbdcb05397da831af513a027738033844e7f9cdeb6e8b192d9c8f917109e72326e449f74bf3ee2a0da3789e0864c3d51ef2bdc816c62cc85f3395d226')
+
+package() {
+  cd "${srcdir}"
+  install -dm0755 "${pkgdir}/usr/bin"
+  
+  LD_PRELOAD="/usr/lib/libfakeroot/libfakeroot.so"
+  bash ./"Anaconda3-${pkgver}-Linux-${CARCH}.sh" -b -p "${pkgdir}/opt/${pkgname}" -f
+  [ "$BREAK_EARLY" = 1 ] && exit 1
+  chmod a+r -R "${pkgdir}/opt/${pkgname}/pkgs"
+  sed -e "s|${pkgdir}||g" -i $(grep "${pkgdir}" "${pkgdir}/opt/${pkgname}" -rIl 2>/dev/null)
+#  echo 'apps = {}' >> "${pkgdir}/opt/${pkgname}/lib/python3.9/site-packages/anaconda_navigator/api/external_apps/__init__.py"
+  install -D -m644 "${pkgdir}/opt/${pkgname}/LICENSE.txt" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.txt"
+  ln -s "/opt/${pkgname}/bin/${pkgname}-navigator" "${pkgdir}/usr/bin/${pkgname}-navigator"
+}

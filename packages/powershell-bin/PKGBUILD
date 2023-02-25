@@ -1,0 +1,40 @@
+# Maintainer: Cthulu201 <cthulu201@duck.com>
+
+pkgname=powershell-bin
+pkgver=7.3.2
+pkgrel=2
+pkgdesc='A cross-platform automation and configuration tool/framework (binary package)'
+arch=('x86_64' 'armv7h' 'aarch64')
+url='https://github.com/Powershell/Powershell'
+license=('MIT')
+groups=('yobuko')
+depends=('krb5' 'gcc-libs' 'glibc' 'lttng-ust' 'zlib' 'icu')
+provides=('powershell')
+conflicts=('powershell')
+options=(staticlibs !strip)
+install=powershell.install
+_artifact="${pkgname}-${pkgver}-${pkgrel}.tar.gz"
+source=("${_artifact}::${url}/releases/download/v${pkgver}/${pkgname//-bin/""}-${pkgver}-linux-x64.tar.gz")
+noextract=("$_artifact")
+sha512sums=('c42cd23c0a1fd416d9f1c7b639428af70ef71339cd70629ee459cb5cec940a2376317fef3e251f8dca5fa11ac872a319b96d7472b9d359e102c79d8c47a6ffc9')
+
+prepare() {
+  cd "${srcdir}" || exit
+  mkdir -p "${pkgname}-${pkgver}-${pkgrel}"
+  tar -xf "${_artifact}" -C "${pkgname}-${pkgver}-${pkgrel}"
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}-${pkgrel}" || exit
+
+  for path in $(find "$(pwd)" -type f); do
+    path_rel=$(realpath --relative-to="$(pwd)" "$path")
+    install -Dm644 "${path_rel}" "${pkgdir}/opt/microsoft/powershell/7/${path_rel}"
+  done
+
+  chmod 755 "${pkgdir}/opt/microsoft/powershell/7/pwsh"
+  mkdir -p "${pkgdir}/usr/bin/"
+  ln -s "/opt/microsoft/powershell/7/pwsh" "${pkgdir}/usr/bin/pwsh"
+
+  install -Dm0644 "LICENSE.txt" "${pkgdir}/usr/share/licenses/powershell-bin/LICENSE"
+}
