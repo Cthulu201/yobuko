@@ -9,7 +9,6 @@ yobuko
 |-- /archive
 |-- /config
 |-- /packages
-|-- /pkg
 |-- /scripts
 |-- .gitignore
 |-- README.md
