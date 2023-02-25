@@ -6,10 +6,11 @@
 
 ```
 yobuko
-|-- /archive
 |-- /config
+|-- /doc
 |-- /packages
 |-- /scripts
+|-- /yopkg
 |-- .gitignore
 |-- README.md
 
