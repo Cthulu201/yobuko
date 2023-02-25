@@ -8,7 +8,6 @@
 yobuko
 |-- /archive
 |-- /config
-|-- /logs
 |-- /packages
 |-- /pkg
 |-- /scripts
