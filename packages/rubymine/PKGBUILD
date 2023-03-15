@@ -2,8 +2,8 @@
 
 _pkgname="RubyMine"
 pkgname="rubymine"
-pkgver=2022.3.2
-pkgrel=2
+pkgver=2022.3.3
+pkgrel=1
 pkgdesc="Ruby and Rails IDE with the full stack of essential developer tools"
 arch=('x86_64')
 url=https://www.jetbrains.com/ruby/
@@ -12,7 +12,7 @@ groups=('yobuko')
 depends=(desktop-file-utils gtk-update-icon-cache)
 optdepends=('ruby: Ruby run/debug support')
 source=(https://download.jetbrains.com/ruby/${_pkgname}-${pkgver}.tar.gz)
-sha512sums=('8bfc4c757a134129c266934cba2a70e5260036f2c8c796738e88082516c3a25a15b326d3d0e835de2919fe30bc241d3f72a943c743403de686310e2afd2d0205')
+sha512sums=('9c797b2aa6d0d5ddd8ceacb3feed4d8908a4a31ab3fffa552eaf9fccf4e2dd698f7a0e2aa1ccb1b3db4f3e7b5c8fcc3204c4ffa80c91f5bada34f38fa532703c')
 
 build() {
   cd "${srcdir}/${_pkgname}-${pkgver}/lib/pty4j/linux/" || exit
