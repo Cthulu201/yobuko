@@ -7,7 +7,7 @@
 # Contributor: Rowisi < nomail <at> private <dot> com >
 
 pkgname="vscodium-bin"
-pkgver=1.76.1.23069
+pkgver=1.76.2.23074
 pkgrel=1
 pkgdesc="Binary releases of VS Code without MS branding/telemetry/licensing."
 arch=('x86_64')
@@ -21,7 +21,7 @@ optdepends=('gvfs:            For move to trash functionality'
 provides=('codium' "${pkgname//-bin/""}")
 conflicts=("${pkgname//-bin/""}" "${pkgname//-bin/""}-git")
 source=("https://github.com/VSCodium/${pkgname//-bin/""}/releases/download/${pkgver}/VSCodium-linux-x64-${pkgver}.tar.gz")
-sha512sums=('a2e37eba3ec70e35f344c2cb552cd75c5d5e67ec9159ac48709d631e5324d19e9cab08f69ffc8ae1fa782aad515be6af661464dfa72ea1f18da752d1d0b48127')
+sha512sums=('3abcdb1c0f189920b32accc892c2e88695b87448f052896f15472874576ae432a829cdf641df6680c27c3e1846c149cecbdc846473f166f98003c81d599486a1')
 
 shopt -s extglob
 
