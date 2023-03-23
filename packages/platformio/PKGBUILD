@@ -1,0 +1,49 @@
+# Maintainer: Cthulu201 <cthulu201@duck.com>
+# Contributor: Guilhelm Savin <aur@gsav.in>
+# Contributor: Jake <aur@ja-ke.tech>
+
+# Upstream URL: https://github.com/platformio/platformio
+
+pkgname=('platformio' 'platformio-udev-rules')
+pkgver=6.1.6
+pkgrel=4
+pkgdesc="A cross-platform code builder and library manager"
+arch=('any')
+url="https://github.com/platformio/platformio-core"
+license=('Apache')
+groups=('yobuko')
+depends=('python-setuptools'
+         'python-bottle'
+         'python-click'
+         'python-colorama'
+         'python-pyserial>=3.4' #https://github.com/platformio/platformio-core/commit/a37eb9868f3b20e982d0c3cd1a742fcb8ab60efc
+         'python-requests'
+         'python-semantic-version'
+         'python-tabulate'
+         'python-pyelftools'
+         'python-marshmallow'
+         'python-zeroconf'
+         'python-aiofiles'
+         'python-ajsonrpc'
+         'python-starlette'
+         'python-wsproto'
+         'uvicorn')
+optdepends=('python-click-completion: for shell completions'
+            'python-shellingham:       for shell completions')
+conflicts=('platformio-git')
+source=("${url}/archive/refs/tags/v6.1.6.tar.gz")
+sha512sums=('879fbc759476118473d13375e4dcdbda901f48f5d0d9bb94bdd3ed09de2563603880b91d102e35eaf144e61cd457b132056e0a8293b762b3566a537f3b886078')
+
+package_platformio() {
+  cd "${srcdir}/platformio-core-${pkgver}" || exit
+  python setup.py install --root="${pkgdir}/" -O1
+}
+
+package_platformio-udev-rules() {
+  depends=('udev')
+  pkgdesc="udev rules for PlatformIO supported boards/devices"
+  url="https://docs.platformio.org/en/latest/faq.html#platformio-udev-rules"
+
+  cd "${srcdir}/platformio-core-${pkgver}" || exit
+  install -m644 -Dt "${pkgdir}/usr/lib/udev/rules.d" "platformio/assets/system/99-platformio-udev.rules"
+}

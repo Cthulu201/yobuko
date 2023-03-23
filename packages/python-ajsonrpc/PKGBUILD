@@ -1,0 +1,25 @@
+# Maintainer: Cthulu201 <cthulu201@duck.com>
+# Contributor: Jake <aur@ja-ke.tech>
+
+pkgname=python-ajsonrpc
+pkgver=1.2.0
+pkgrel=1
+pkgdesc="Async JSON-RPC 2.0 protocol + server"
+arch=('any')
+depends=('python')
+makedepends=('python-setuptools')
+url="https://github.com/pavlov99/ajsonrpc"
+license=('MIT')
+options=(!emptydirs)
+source=(https://pypi.org/packages/source/a/${pkgname#python-}/${pkgname#python-}-${pkgver}.tar.gz)
+sha512sums=('958300ff858f1997012591cfb47d2ee1b7ba2f0a9577cb8568817ce7b490e13a5b757ea79153b4e6cf3aaf54e58e4ff925e25513f46b06e483b04b882f626b49')
+
+build() {
+  cd "${srcdir}/${pkgname#python-}-${pkgver}"
+  python setup.py build
+}
+
+package() {
+  cd "${srcdir}/${pkgname#python-}-${pkgver}"
+  python setup.py install --root="${pkgdir}" -O1
+}
