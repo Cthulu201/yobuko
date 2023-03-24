@@ -32,4 +32,5 @@ package() {
 #  echo 'apps = {}' >> "${pkgdir}/opt/${pkgname}/lib/python3.9/site-packages/anaconda_navigator/api/external_apps/__init__.py"
   install -D -m644 "${pkgdir}/opt/${pkgname}/LICENSE.txt" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.txt"
   ln -s "/opt/${pkgname}/bin/${pkgname}-navigator" "${pkgdir}/usr/bin/${pkgname}-navigator"
+  ln -s "/opt/${pkgname}/bin/conda" "${pkgdir}/usr/bin/conda"
 }
