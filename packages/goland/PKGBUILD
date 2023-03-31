@@ -2,7 +2,7 @@
 
 _pkgname="GoLand"
 pkgname="goland"
-pkgver=2022.3.3
+pkgver=2022.3.4
 pkgrel=1
 pkgdesc="Capable and Ergonomic Go IDE"
 arch=('x86_64')
@@ -12,7 +12,7 @@ groups=('yobuko')
 depends=('glib2')
 options=('!strip')
 source=("https://download.jetbrains.com/go/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('e5a216a2f31698f226bcc58ed5f7c7efd0110f93f001c6de20d2fee25cfd7b816bda59f1f6fda5c0052cfa0d5aa1e089c7f2a7d2a6cedc64a6fd3c7319359030')
+sha512sums=('b2439f343a2e7cfa6907e6b2753232ecb7c72560c9483167ba5b0e974e55f53ee69c9d81163e51b146c28deb811822a5f169bb8660cc02f292153bc121e1bf5e')
 
 build() {
   cd "${srcdir}/${_pkgname}-${pkgver}/lib/pty4j/linux/" || exit

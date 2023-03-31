@@ -5,8 +5,8 @@ pkgname=librewolf-bin
 provides=("${pkgname//-bin/""}")
 conflicts=("${pkgname//-bin/""}")
 replaces=("${pkgname//-bin/""}")
-pkgver=110.0
-pkgrel=2
+pkgver=111.0.1
+pkgrel=1
 pkgdesc="Community-maintained fork of Firefox, focused on privacy, security and freedom."
 arch=(x86_64)
 license=(MPL GPL LGPL)
@@ -28,7 +28,7 @@ install='librewolf-bin.install'
 _project_id=12875785
 source=("https://gitlab.com/api/v4/projects/${_project_id}/packages/generic/${pkgname//-bin/""}/${pkgver}-${pkgrel}/${pkgname//-bin/""}-${pkgver}-${pkgrel}-x86_64.pkg.tar.zst"
         "https://gitlab.com/api/v4/projects/${_project_id}/packages/generic/${pkgname//-bin/""}/${pkgver}-${pkgrel}/${pkgname//-bin/""}-${pkgver}-${pkgrel}-x86_64.pkg.tar.zst.sig")
-sha512sums=('b28e732fb58557f497cb3f84e4b0c42ae023f9f750a117e9b1184af2452c96c1a4f02a3af0ba6bf28ba2e18b1c27e78afd53e43170a10d1c49248b32532503e1'
+sha512sums=('52aa935f8511f83d37c5678b3c7515eae97190d52d19082e633f94735779cd88d2610d87e257cad9520d7d2e974aaf129afdb781b9fca7c2c4259d8457364db2'
             'SKIP')
 
 package() {
