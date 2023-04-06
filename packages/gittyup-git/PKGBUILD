@@ -8,11 +8,11 @@
 # Contributor: Angelo Theodorou <encelo@gmail.com>
 
 _pkgname="gittyup"
-pkgname=${_pkgname}-git
-pkgver=1.2.2
-pkgrel=4
+pkgname=${_pkgname,}-git
+pkgver=r1546.c8c4f68
+pkgrel=1
 pkgdesc='A graphical Git client designed to help you understand and manage your source code history'
-url="https://github.com/Murmele/${_pkgname^}"
+url="https://github.com/Murmele/${_pkgname}"
 arch=(x86_64)
 license=(MIT)
 groups=('yobuko')
@@ -21,7 +21,7 @@ makedepends=('cmake' 'libgnome-keyring' 'ninja' 'qt5-tools' 'qt5-translations')
 optdepends=('git-lfs:          git-lfs support'
             'libgnome-keyring: for GNOME Keyring for auth credentials'
             'qt5-translations: translations')
-source=("git+${url}.git#tag=${_pkgname}_v${pkgver}"
+source=("git+${url}.git"
         "${_pkgname}-libgit2::git+https://github.com/stinb/libgit2.git" # a fork, not the official upstream!
         "${_pkgname}-scintillua::git+https://github.com/orbitalquark/scintillua.git"
         "${_pkgname}-lexilla::git+https://github.com/ScintillaOrg/lexilla.git"
@@ -31,9 +31,16 @@ sha512sums=('SKIP'
             'SKIP'
             'SKIP'
             'SKIP')
+pkgver() {
+  cd "${srcdir}/${_pkgname}"
+  ( set -o pipefail
+    git describe --long --abbrev=7 2>/dev/null | sed 's/\([^-]*-g\)/r\1/;s/-/./g' ||
+    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short=7 HEAD)"
+  )
+}
 
 prepare() {
-  cd "${srcdir}/${_pkgname^}" || exit
+  cd "${srcdir}/${_pkgname}" || exit
   git submodule init
   git config submodule.dep/cmark/cmark.update none
   git config submodule.dep/git/git.update none
@@ -66,7 +73,7 @@ build() {
   	-D USE_SYSTEM_OPENSSL=ON \
   	-D LUA_MODULES_PATH=/usr/lib/lua/5.4 \
   	-B build \
-  	-S "${_pkgname^}"
+  	-S "${_pkgname}"
   ninja -C build
 }
 
@@ -77,15 +84,16 @@ check() {
 
 package() {
   cd "${srcdir}" || exit
-  install -Dm0644 "${_pkgname^}/LICENSE.md" "${pkgdir}/usr/share/licenses/${pkgname//-git/""}/LICENSE"
+  install -Dm0644 "${_pkgname}/LICENSE.md" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
   DESTDIR="${pkgdir}" ninja -C build install
   pushd "${pkgdir}/usr" || exit
   mkdir -p bin
-  mv ${_pkgname^} bin/${pkgname//-git/""}
+  pwd
+  mv "${srcdir}/build/${_pkgname}" "bin/${pkgname//-git/""}"
+  mv "${srcdir}/build/"{indexer,relauncher} "share/${pkgname}"
   rm -f ./*.so.*
-  mv indexer relauncher "share/${pkgname}"
-  local _icons="Resources/${_pkgname^}.iconset"
-  install -Dm0644 "$_icons/gittyup_logo.svg" "${pkgdir}/usr/share/icons/hicolor/scalable/apps/gittyup.svg"
+  local _icons="${srcdir}/${_pkgname}/rsrc/${_pkgname^}.iconset"
+  install -Dm0644 "${_icons}/gittyup_logo.svg" "${pkgdir}/usr/share/icons/hicolor/scalable/apps/gittyup.svg"
   for s in 16x16 32x32 64x64 128x128 256x256 512x512; do
     install -Dm0644 "$_icons/icon_16x16.png" "${pkgdir}/usr/share/icons/hicolor/16x16/apps/gittyup.png"
   	install -Dm0644 "$_icons/icon_$s.png" "${pkgdir}/usr/share/icons/hicolor/$s/apps/${pkgname//-git/""}.png"
