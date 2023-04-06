@@ -3,7 +3,7 @@
 
 _pkgname=visual-studio-code
 pkgname=visual-studio-code-bin
-pkgver=1.76.2
+pkgver=1.77.1
 pkgrel=1
 pkgdesc="Visual Studio Code IDE for building and debugging modern web and cloud applications"
 arch=('x86_64')
@@ -18,7 +18,7 @@ optdepends=('glib2:                   Needed for move to trash functionality'
             'org.freedesktop.secrets: Needed for settings sync')
 source=("code_x64_${pkgver}.tar.gz::https://update.code.visualstudio.com/${pkgver}/linux-x64/stable"
         "visual-studio-code-workspace.xml")
-sha512sums=('4087dae3a567d99e6bd1bec1dcef41b824118ce4004b6f70226b0c3b96ead3f685c7a9b00fda2bcd5ada3cfcdaf39856be0345209cf30fd31d2826d1114f207b'
+sha512sums=('b7411a965cc7296f58ed64a879dcbfe564f85420dc8e06155b79b5835241a312ba156fcfbe11ae83f6575844b605e10adb61798735b64a05ed61747a78bba390'
             'c0457f5f9dcba59d8c8b85bb12aeafc682419c488d3c7a332fcc4edb6d6062e48ce8a1ed09c0447e20275a2e8001d26ea3b61545025426d66d3093e37db6a7c9')
 
 package() {
