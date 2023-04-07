@@ -7,7 +7,7 @@
 
 pkgname=anaconda
 pkgver=2023.03
-pkgrel=1
+pkgrel=2
 pkgdesc="Package manager, an environment manager, a Python/R data science distribution"
 arch=('x86_64')
 url='https://www.anaconda.com/'

@@ -3,7 +3,7 @@
 _pkgname="RubyMine"
 pkgname="rubymine"
 pkgver=2023.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Ruby and Rails IDE with the full stack of essential developer tools"
 arch=('x86_64')
 url=https://www.jetbrains.com/ruby/
@@ -11,6 +11,7 @@ license=(custom)
 groups=('yobuko')
 depends=(desktop-file-utils gtk-update-icon-cache)
 optdepends=('ruby: Ruby run/debug support')
+options=(!strip)
 source=(https://download.jetbrains.com/ruby/${_pkgname}-${pkgver}.tar.gz)
 sha512sums=('25b1f552e5016cdcb7896db6dadac170fbf484f37b321c88cb7509a046201c3afb58bfc55e6ac40203a4703b2ac0d593637eaee0799c22feca3f7609fbbc43c8')
 

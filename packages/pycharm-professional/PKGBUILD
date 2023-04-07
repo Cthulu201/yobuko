@@ -2,7 +2,7 @@
 
 pkgname="pycharm-professional"
 pkgver=2023.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Python IDE for Professional Developers. Professional Edition"
 arch=('x86_64')
 url='https://www.jetbrains.com/pycharm/'
@@ -24,6 +24,7 @@ optdepends=('python2:           For Python 2 development'
             'jupyter-notebook:  For support Jupyter Notebook')
 provides=('pycharm-professional')
 conflicts=('pycharm' 'pycharm-community-edition')
+options=(!strip)
 source=("https://download.jetbrains.com/python/${pkgname}-${pkgver}.tar.gz")
 sha512sums=('6c363c8d2a5b69b6538a82f9151311560da60708041e64e60f0a12b3aede6dc30fe2b7e2a62209ebffa638fde5330c30c8fd2996b7c484b999f68e075f94fad7')
 

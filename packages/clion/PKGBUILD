@@ -2,13 +2,14 @@
 
 pkgname="clion"
 pkgver=2023.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A cross-platform IDE for C and C++"
 arch=('x86_64')
 url="http://www.jetbrains.com/${_pkgname}"
 license=('custom')
 groups=('yobuko')
 depends=('python')
+options=(!strip)
 source=("https://download.jetbrains.com/cpp/CLion-${pkgver}.tar.gz")
 sha512sums=('32fd59bcdd51955c3788ce3d4a7f3fb15271e2c708ba8ba1885dc0e422269a679794e23c3258af28ef5da126cf38cafbcee166b3ea0d168c076ab45d23a4cbbc')
 

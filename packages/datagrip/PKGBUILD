@@ -3,7 +3,7 @@
 _pkgname="DataGrip"
 pkgname="datagrip"
 pkgver=2023.1
-pkgrel=1
+pkgrel=2
 pkgdesc="A database management environment for developers"
 arch=('x86_64')
 url="https://www.jetbrains.com/datagrip"
@@ -13,6 +13,7 @@ depends=(desktop-file-utils gtk-update-icon-cache)
 optdepends=('mariadb:    Fast SQL database server derived from MySQL'
             'postgresql: Sophisticated object-relational DBMS'
             'sqlite:     A C library that implements an SQL database engine')
+options=(!strip)
 source=("https://download.jetbrains.com/datagrip/${pkgname}-${pkgver}.tar.gz")
 sha512sums=('93d9974080c2d9fc52aab09485140823edf6ded77ed5cf36e968617f3c7bd28e37c99f2e2ab9c012bd2d22caf934d5b631de1644852657fa792825c43a1dff4c')
 
