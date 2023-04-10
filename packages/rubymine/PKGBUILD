@@ -3,7 +3,7 @@
 _pkgname="RubyMine"
 pkgname="rubymine"
 pkgver=2023.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Ruby and Rails IDE with the full stack of essential developer tools"
 arch=('x86_64')
 url=https://www.jetbrains.com/ruby/

@@ -6,7 +6,7 @@
 
 pkgname=('platformio' 'platformio-udev-rules')
 pkgver=6.1.6
-pkgrel=4
+pkgrel=6
 pkgdesc="A cross-platform code builder and library manager"
 arch=('any')
 url="https://github.com/platformio/platformio-core"
