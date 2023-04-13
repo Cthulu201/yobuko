@@ -2,8 +2,8 @@
 
 _pkgname="DataGrip"
 pkgname="datagrip"
-pkgver=2023.1
-pkgrel=2
+pkgver=2023.1.1
+pkgrel=1
 pkgdesc="A database management environment for developers"
 arch=('x86_64')
 url="https://www.jetbrains.com/datagrip"
@@ -15,7 +15,7 @@ optdepends=('mariadb:    Fast SQL database server derived from MySQL'
             'sqlite:     A C library that implements an SQL database engine')
 options=(!strip)
 source=("https://download.jetbrains.com/datagrip/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('93d9974080c2d9fc52aab09485140823edf6ded77ed5cf36e968617f3c7bd28e37c99f2e2ab9c012bd2d22caf934d5b631de1644852657fa792825c43a1dff4c')
+sha512sums=('1edc3a3d13163c37d44f6deff61a69bafe99d9c4a095f3131fa8f542078b3ae9fc4bc3e7b3ea8b9e7f3efc676a58a5ac5a22cf66837eb6afb676723b7f7087d3')
 
 build() {
   cd "${srcdir}/${_pkgname}-${pkgver}/lib/pty4j/linux/" || exit
