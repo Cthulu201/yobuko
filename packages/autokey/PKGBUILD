@@ -1,0 +1,94 @@
+# Maintainer: Cthulu201 <cthulu201@duck.com>
+# Contributor: Mark Wagie <mark dot wagie at tutanota dot com>
+# Contributor: Dmitry Kharitonov <darksab0r@gmail.com>
+# Contributor: Dave Blair <mail@dave-blair.de>
+
+pkgname=('autokey-common' 'autokey-gtk' 'autokey-qt')
+pkgbase=autokey
+pkgver=0.96.0
+pkgrel=1
+pkgdesc="A desktop automation utility for Linux and X11"
+arch=('any')
+url="https://github.com/autokey/autokey"
+license=('GPL3')
+makedepends=('python-build' 'python-installer' 'python-pyqt5' 'python-setuptools' 'python-wheel')
+source=("${pkgbase}-${pkgver}.tar.gz::https://github.com/autokey/autokey/archive/v${pkgver}.tar.gz")
+sha512sums=('7c3b92ed040aa0edadacb913c642fdfe884e096fbaf3a56940fc5b6cbb78320edb8e469c7255f25e9d886a0cf8415a874931247ab74f928cc21a14c05d9fa7d4')
+
+build() {
+  cd "${srcdir}/${pkgbase}-${pkgver}" || exit
+  python -m build --wheel --no-isolation
+
+  # remove shebang from python libraries
+  for lib in $(find lib/autokey/ -name "*.py"); do
+    sed '/\/usr\/bin\/env/d' "${lib}" > "${lib}".new &&
+    touch -r "${lib}" "${lib}.new" &&
+    mv "${lib}.new" "${lib}"
+  done
+}
+
+package_autokey-common() {
+  pkgdesc+=" - common data"
+  depends=('python-pyinotify' 'python-xlib' 'python-dbus' 'wmctrl'
+           'gtk-update-icon-cache' 'xautomation' 'imagemagick' 'xorg-xwd')
+  provides=("${pkgbase}")
+  conflicts=("${pkgbase}")
+
+  cd "${srcdir}/${pkgbase}-${pkgver}" || exit
+  python -m installer --destdir="${pkgdir}" dist/*.whl
+
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+
+  rm -f "${pkgdir}/usr/bin/${pkgbase}"{-qt,-gtk}
+  rm -f "${pkgdir}${site_packages}/${pkgbase}/"{gtkapp.py,qtapp.py}
+  rm -f "${pkgdir}/usr/share/man/man1/${pkgbase}"{-gtk*,-qt*}
+  rm -rf "${pkgdir}${site_packages}/${pkgbase}/"{gtkui,qtui}
+  rm -rf "${pkgdir}/usr/share/applications"
+}
+
+package_autokey-gtk() {
+  pkgdesc+=" - GTK frontend"
+  depends=('autokey-common' 'python-gobject' 'gtksourceview3' 'libappindicator-gtk3'
+           'libnotify' 'zenity')
+  optdepends=('python-atspi')
+
+  cd "${srcdir}/${pkgbase}-${pkgver}" || exit
+  python -m installer --destdir="${pkgdir}" dist/*.whl
+
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+
+  rm -f "${pkgdir}/usr/bin/${pkgbase}"{-qt,-run,-shell}
+  rm -f "${pkgdir}${site_packages}/${pkgbase}/"{UI_common_functions,argument_parser,common,dbus_service,interface,logger,macro,monitor,service,__init__,qtapp}.py
+  rm -f "${pkgdir}${site_packages}/${pkgbase}/"{iomediator,model}/*.py
+  rm -f "${pkgdir}/usr/share/applications/${pkgbase}-qt.desktop"
+  rm -f "${pkgdir}/usr/share/man/man1/${pkgbase}"{-qt*,-run*}
+  rm -f "${pkgdir}${site_packages}/${pkgbase}/scripting/"*_qt.py
+  rm -rf "${pkgdir}${site_packages}/${pkgbase}/"{configmanager,qtui,scripting}
+  rm -rf "${pkgdir}${site_packages}/${pkgbase}/__pycache__"
+  rm -rf "${pkgdir}${site_packages}/${pkgbase}/"{iomediator,model}/__pycache__
+  rm -rf "${pkgdir}${site_packages}/${pkgbase}-${pkgver}.dist-info"
+  rm -rf "${pkgdir}/usr/share/icons"
+}
+
+package_autokey-qt() {
+  pkgdesc+=" - Qt frontend"
+  depends=('autokey-common' 'python-pyqt5' 'python-qscintilla-qt5' 'qt5-svg' 'kdialog')
+  optdepends=('qt-at-spi')
+
+  cd "${srcdir}/${pkgbase}-${pkgver}" || exit
+  python -m installer --destdir="${pkgdir}" dist/*.whl
+
+  local site_packages=$(python -c "import site; print(site.getsitepackages()[0])")
+
+  rm -f "${pkgdir}/usr/bin/${pkgbase}"{-gtk,-run,-shell}
+  rm -f "${pkgdir}${site_packages}/${pkgbase}/"{UI_common_functions,argument_parser,common,dbus_service,interface,logger,macro,monitor,service,__init__,gtkapp}.py
+  rm -f "${pkgdir}${site_packages}/${pkgbase}/"{iomediator,model}/*.py
+  rm -f "${pkgdir}/usr/share/applications/${pkgbase}-gtk.desktop"
+  rm -f "${pkgdir}/usr/share/man/man1/${pkgbase}"{-gtk*,-run*}
+  rm -f "${pkgdir}${site_packages}/${pkgbase}/scripting/"*_gtk.py
+  rm -rf "${pkgdir}${site_packages}/${pkgbase}/"{configmanager,gtkui,scripting}
+  rm -rf "${pkgdir}${site_packages}/${pkgbase}/__pycache__"
+  rm -rf "${pkgdir}${site_packages}/${pkgbase}/"{iomediator,model}/__pycache__
+  rm -rf "${pkgdir}${site_packages}/${pkgbase}-${pkgver}.dist-info"
+  rm -rf "${pkgdir}/usr/share/icons"
+}
