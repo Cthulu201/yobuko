@@ -9,7 +9,7 @@
 
 _pkgname="gittyup"
 pkgname=${_pkgname,}-git
-pkgver=r1546.c8c4f68
+pkgver=r1561.2729ed0
 pkgrel=1
 pkgdesc='A graphical Git client designed to help you understand and manage your source code history'
 url="https://github.com/Murmele/${_pkgname}"
