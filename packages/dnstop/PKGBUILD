@@ -1,0 +1,26 @@
+# Maintainer: Cthulu201 <cthulu201@duck.com>
+# Contributor: Oliver Graute <oliver.graute@gmail.com>
+
+pkgname=dnstop
+pkgver=20140915
+pkgrel=1
+pkgdesc="A libpcap application that displays various tables of DNS traffic on your network."
+arch=('x86_64')
+url="http://dns.measurement-factory.com/tools/dnstop/"
+license=('BSD')
+groups=('')
+depends=('libpcap')
+source=("http://dns.measurement-factory.com/tools/dnstop/src/${pkgname}-${pkgver}.tar.gz")
+sha512sums=('902cf96f7366983cae4bf684e44fbe12f6e982cee8ff489329e25e1a13de60870d356906a99fee56c6da2258c4a39074a504389549c6c2e239a4ea94d8b9a65d')
+
+build() {
+  cd "${srcdir}/${pkgname}-${pkgver}" || exit
+  ./configure --prefix=/usr
+  make
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}" || exit
+  install -Dm755 ${pkgname} "${pkgdir}/usr/bin/${pkgname}"
+  install -Dm644 "${pkgname}.8" "${pkgdir}/usr/share/man/man8/${pkgname}.8"
+}
