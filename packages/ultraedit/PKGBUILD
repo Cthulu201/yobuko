@@ -1,7 +1,8 @@
-# Maintainer: Peter Klotz <peter.klotz99@gmail.com>
+# Maintainer: Cthulu201 <cthulu201@duck.com>
+# Contributor: Peter Klotz <peter.klotz99@gmail.com>
 
 pkgbase="ultraedit"
-pkgname=("uex" "ucx")
+pkgname=("ultraedit" "ultracompare")
 pkgver=21.00.0.0
 _pkgver=21.00.0.18
 pkgrel=1
@@ -10,13 +11,16 @@ arch=('x86_64')
 url="http://www.ultraedit.com/products/uex.html"
 license=('custom')
 depends=('desktop-file-utils' 'webkit2gtk' 'libjpeg' 'libjpeg6' 'libpng' 'libsm')
-source=("https://downloads.ultraedit.com/main/uc/linux/tar/ucx-${_pkgver}_amd64.tar.gz"
-        "https://downloads.ultraedit.com/main/ue/linux/tar/uex_${pkgver}_amd64.tar.gz")
-sha512sums=('1e59192b96daafa35d9affeaae354d64030233451973a6cdb7a0a049c89bd7656b897f8c40ffa4300a32080ef196f705f883e336ce35bc48a94fac0a06bb6865'
-            'caeb9e2d8b6a3e79d023e1eb9fce4356db90be1757dd71672cb3e503dacb9e7dbd4bab154628fc79cf6dc41e8047c32f4523303a644161889622bef8cf57b710')
+source=("https://downloads.ultraedit.com/main/ue/linux/tar/uex_${pkgver}_amd64.tar.gz"
+        "https://downloads.ultraedit.com/main/uc/linux/tar/ucx-${_pkgver}_amd64.tar.gz")
+sha512sums=('caeb9e2d8b6a3e79d023e1eb9fce4356db90be1757dd71672cb3e503dacb9e7dbd4bab154628fc79cf6dc41e8047c32f4523303a644161889622bef8cf57b710'
+            '1e59192b96daafa35d9affeaae354d64030233451973a6cdb7a0a049c89bd7656b897f8c40ffa4300a32080ef196f705f883e336ce35bc48a94fac0a06bb6865')
 DLAGENTS=('https::/usr/bin/curl -fLC - --user-agent Lynx --retry 3 --retry-delay 3 -o %o %u')
 
-package_uex() {
+package_ultraedit() {
+  pkgdesc="flexible, powerful, and secure text editor"
+
+  cd "${srcdir}/uex"
   install -d "${pkgdir}/opt" "${pkgdir}/usr/bin" "${pkgdir}/usr/share/pixmaps" "${pkgdir}/usr/share/applications" "${pkgdir}/usr/share/licenses/${pkgname}"
 
   cp -R "${srcdir}/uex" "${pkgdir}/opt"
@@ -26,6 +30,15 @@ package_uex() {
   ln -s "/opt/uex/share/doc/uex/copyright" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
 
-package_ucx() {
-  echo "UltraCompare package"
+package_ultracompare() {
+  pkgdesc="Powerful file, folder, PDF, Word, and Excel compare"
+
+  cd "${srcdir}/ucx"
+  install -d "${pkgdir}/opt" "${pkgdir}/usr/bin" "${pkgdir}/usr/share/pixmaps" "${pkgdir}/usr/share/applications" "${pkgdir}/usr/share/licenses/${pkgname}"
+
+  cp -R "${srcdir}/ucx" "${pkgdir}/opt"
+  ln -s "/opt/ucx/bin/ucx" "${pkgdir}/usr/bin/ucx"
+  ln -s "/opt/ucx/share/ucx/uc.png" "${pkgdir}/usr/share/pixmaps/uc.png"
+  ln -s "/opt/ucx/share/ucx/ucx.desktop" "${pkgdir}/usr/share/applications/ucx.desktop"
+  ln -s "/opt/ucx/share/doc/ucx/copyright" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
