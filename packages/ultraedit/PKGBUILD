@@ -5,13 +5,14 @@ pkgbase="ultraedit"
 pkgname=("${pkgbase}" "ultracompare")
 pkgver=21.00.0.0
 _pkgver=21.00.0.18
-pkgrel=2
+pkgrel=4
 pkgdesc="flexible, powerful, and secure text editor"
 arch=('x86_64')
 url="http://www.ultraedit.com/products/uex.html"
 license=('custom')
 groups=('yobuko')
-depends=('desktop-file-utils' 'webkit2gtk' 'libjpeg' 'libjpeg6' 'libpng' 'libsm')
+depends=('desktop-file-utils' 'webkit2gtk-4.1' 'libjpeg' 'libjpeg6' 'libpng' 'libsm'
+         'glibc' 'gtk3' 'glib2' 'libpulse')
 source=("https://downloads.ultraedit.com/main/ue/linux/tar/uex_${pkgver}_amd64.tar.gz"
         "https://downloads.ultraedit.com/main/uc/linux/tar/ucx-${_pkgver}_amd64.tar.gz")
 sha512sums=('caeb9e2d8b6a3e79d023e1eb9fce4356db90be1757dd71672cb3e503dacb9e7dbd4bab154628fc79cf6dc41e8047c32f4523303a644161889622bef8cf57b710'
