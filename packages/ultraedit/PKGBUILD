@@ -2,14 +2,15 @@
 # Contributor: Peter Klotz <peter.klotz99@gmail.com>
 
 pkgbase="ultraedit"
-pkgname=("ultraedit" "ultracompare")
+pkgname=("${pkgbase}" "ultracompare")
 pkgver=21.00.0.0
 _pkgver=21.00.0.18
-pkgrel=1
+pkgrel=2
 pkgdesc="flexible, powerful, and secure text editor"
 arch=('x86_64')
 url="http://www.ultraedit.com/products/uex.html"
 license=('custom')
+groups=('yobuko')
 depends=('desktop-file-utils' 'webkit2gtk' 'libjpeg' 'libjpeg6' 'libpng' 'libsm')
 source=("https://downloads.ultraedit.com/main/ue/linux/tar/uex_${pkgver}_amd64.tar.gz"
         "https://downloads.ultraedit.com/main/uc/linux/tar/ucx-${_pkgver}_amd64.tar.gz")
