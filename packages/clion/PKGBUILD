@@ -1,8 +1,8 @@
 # Maintainer: Cthulu201 <cthulu201@duck.com>
 
 pkgname="clion"
-pkgver=2023.1.1
-pkgrel=2
+pkgver=2023.1.2
+pkgrel=1
 pkgdesc="A cross-platform IDE for C and C++"
 arch=('x86_64')
 url="http://www.jetbrains.com/${_pkgname}"
@@ -11,7 +11,7 @@ groups=('yobuko')
 depends=('python')
 options=(!strip)
 source=("https://download.jetbrains.com/cpp/CLion-${pkgver}.tar.gz")
-sha512sums=('32fd59bcdd51955c3788ce3d4a7f3fb15271e2c708ba8ba1885dc0e422269a679794e23c3258af28ef5da126cf38cafbcee166b3ea0d168c076ab45d23a4cbbc')
+sha512sums=('6c2edb0c136e6ceb959303d22bc0e5ff58760c146c0ed0d9d3dca4944f2b8f267a5f1570482f7de3953b73315b440165f795c82f257abb0a068f99f5a877495e')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}/lib/pty4j/linux/" || exit

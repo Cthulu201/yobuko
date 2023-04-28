@@ -6,26 +6,26 @@
 # Contributor: Martin Wimpress <code@flexion.org>
 
 pkgname=anaconda
-pkgver=2023.03
-pkgrel=2
+pkgver=2023.03_1
+pkgrel=1
 pkgdesc="Package manager, an environment manager, a Python/R data science distribution"
 arch=('x86_64')
 url='https://www.anaconda.com/'
 license=("BSD")
 groups=('yobuko')
-source=("https://repo.anaconda.com/archive/Anaconda3-${pkgver}-Linux-x86_64.sh")
+source=("https://repo.anaconda.com/archive/Anaconda3-${pkgver//_/-}-Linux-x86_64.sh")
 depends=('libxau' 'libxi' 'libxss' 'libxtst' 'libxcursor' 'libxcomposite'
          'libxdamage' 'libxfixes' 'libxrandr' 'libxrender' 'mesa-libgl'
          'alsa-lib' 'libglvnd')
 options=(!strip libtool staticlibs)
-sha512sums=('27a44d1da6a6d0bce646e735510c3a16f30a74a310f86c6da09a6364d440717750bad96316ae978f66ed1801310e7d4cf0b5a410808a7c51522a484e636eb4ad')
+sha512sums=('69f69811ed962bb515c18bd2a802dcc5c909a340e69c6d744a9a41dcb45977030c3fdca08b298d55d12d1a88ca2a48a028757593013b4b70e9764625048a0bd3')
 
 package() {
   cd "${srcdir}"
   install -dm0755 "${pkgdir}/usr/bin"
   
   LD_PRELOAD="/usr/lib/libfakeroot/libfakeroot.so"
-  bash ./"Anaconda3-${pkgver}-Linux-${CARCH}.sh" -b -p "${pkgdir}/opt/${pkgname}" -f
+  bash ./"Anaconda3-${pkgver//_/-}-Linux-${CARCH}.sh" -b -p "${pkgdir}/opt/${pkgname}" -f
   [ "$BREAK_EARLY" = 1 ] && exit 1
   chmod a+r -R "${pkgdir}/opt/${pkgname}/pkgs"
   sed -e "s|${pkgdir}||g" -i $(grep "${pkgdir}" "${pkgdir}/opt/${pkgname}" -rIl 2>/dev/null)
