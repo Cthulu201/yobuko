@@ -3,7 +3,7 @@
 
 pkgname="ultracompare"
 pkgver=21.00.0.18
-pkgrel=1
+pkgrel=2
 pkgdesc="Powerful file, folder, PDF, Word, and Excel compare"
 arch=('x86_64')
 url="http://www.ultraedit.com/products/uex.html"
@@ -21,6 +21,7 @@ package() {
 
   cp -R "${srcdir}/ucx" "${pkgdir}/opt"
   ln -s "/opt/ucx/bin/ucx" "${pkgdir}/usr/bin/ucx"
+  ln -s "/opt/ucx/bin/ucx" "${pkgdir}/usr/bin/ultracompare"
   ln -s "/opt/ucx/share/ucx/uc.png" "${pkgdir}/usr/share/pixmaps/uc.png"
   ln -s "/opt/ucx/share/ucx/ucx.desktop" "${pkgdir}/usr/share/applications/ucx.desktop"
   ln -s "/opt/ucx/share/doc/ucx/copyright" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"

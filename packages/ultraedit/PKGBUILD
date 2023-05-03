@@ -2,7 +2,7 @@
 
 pkgname="ultraedit"
 pkgver=21.00.0.0
-pkgrel=6
+pkgrel=7
 pkgdesc="flexible, powerful, and secure text editor"
 arch=('x86_64')
 url="http://www.ultraedit.com/products/uex.html"
@@ -20,6 +20,7 @@ package() {
 
   cp -R "${srcdir}/uex" "${pkgdir}/opt"
   ln -s "/opt/uex/bin/uex" "${pkgdir}/usr/bin/uex"
+  ln -s "/opt/uex/bin/uex" "${pkgdir}/usr/bin/ultraedit"
   ln -s "/opt/uex/share/uex/ue.png" "${pkgdir}/usr/share/pixmaps/ue.png"
   ln -s "/opt/uex/share/uex/uex.desktop" "${pkgdir}/usr/share/applications/uex.desktop"
   ln -s "/opt/uex/share/doc/uex/copyright" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
