@@ -2,8 +2,8 @@
 # Contributor: Maintainer: Meow
 
 pkgname=rstudio-bin
-pkgver=2023.03.0_386
-pkgrel=2
+pkgver=2023.03.1_446
+pkgrel=1
 pkgdesc="An integrated development environment (IDE) for R (binary from RStudio official repository)"
 arch=('x86_64')
 url="http://www.rstudio.org/"
@@ -18,7 +18,7 @@ options=(!strip)
 install="${pkgname}".install
 source=("https://download1.rstudio.org/electron/jammy/amd64/rstudio-${pkgver//_/-}-amd64.deb"
         "rstudio-bin.install")
-sha512sums=('293f852fde8e33a9f2bf25cbca83995604c4c9bc688abfbd4bbaa2440f7aead6f4ff80a86ea0969607295ef60a52d0ed4035c0e14335b4b674e58892eaeaf1b5'
+sha512sums=('d68560afd35f9e85edba9597c71680e998399e6615b433a79997696d49692cc007473bd458ebf8e848d86ab8847b5e0b0ebfc0e34c01b000030b85f142fdd7cf'
             '97526989479c289244bad580ce0f1928775dcc2d31dfb18ce1bdccf1bc958398a5f4b1e93f9e2efbca949079f306c416b8e5a45672677a90d7c5b78bac3b8905')
 
 package() {
