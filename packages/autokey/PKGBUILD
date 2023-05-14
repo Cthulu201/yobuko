@@ -3,16 +3,16 @@
 # Contributor: Dmitry Kharitonov <darksab0r@gmail.com>
 # Contributor: Dave Blair <mail@dave-blair.de>
 
-pkgname=('autokey-common' 'autokey-gtk' 'autokey-qt')
-pkgbase=autokey
+pkgbase="autokey"
+pkgname=("${pkgbase}-common" "${pkgbase}-gtk" "${pkgbase}-qt")
 pkgver=0.96.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A desktop automation utility for Linux and X11"
 arch=('any')
-url="https://github.com/autokey/autokey"
+url="https://github.com/${pkgbase}/${pkgbase}"
 license=('GPL3')
-makedepends=('python-build' 'python-installer' 'python-pyqt5' 'python-setuptools' 'python-wheel')
-source=("${pkgbase}-${pkgver}.tar.gz::https://github.com/autokey/autokey/archive/v${pkgver}.tar.gz")
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
+source=("${pkgbase}-${pkgver}.tar.gz::https://github.com/${pkgbase}/${pkgbase}/archive/v${pkgver}.tar.gz")
 sha512sums=('7c3b92ed040aa0edadacb913c642fdfe884e096fbaf3a56940fc5b6cbb78320edb8e469c7255f25e9d886a0cf8415a874931247ab74f928cc21a14c05d9fa7d4')
 
 build() {
@@ -20,7 +20,7 @@ build() {
   python -m build --wheel --no-isolation
 
   # remove shebang from python libraries
-  for lib in $(find lib/autokey/ -name "*.py"); do
+  for lib in $(find lib/${pkgbase}/ -name "*.py"); do
     sed '/\/usr\/bin\/env/d' "${lib}" > "${lib}".new &&
     touch -r "${lib}" "${lib}.new" &&
     mv "${lib}.new" "${lib}"
@@ -48,7 +48,7 @@ package_autokey-common() {
 
 package_autokey-gtk() {
   pkgdesc+=" - GTK frontend"
-  depends=('autokey-common' 'python-gobject' 'gtksourceview3' 'libappindicator-gtk3'
+  depends=("${pkgbase}-common" 'python-gobject' 'gtksourceview3' 'libappindicator-gtk3'
            'libnotify' 'zenity')
   optdepends=('python-atspi')
 
@@ -72,7 +72,7 @@ package_autokey-gtk() {
 
 package_autokey-qt() {
   pkgdesc+=" - Qt frontend"
-  depends=('autokey-common' 'python-pyqt5' 'python-qscintilla-qt5' 'qt5-svg' 'kdialog')
+  depends=("${pkgbase}-common" 'python-pyqt5' 'python-qscintilla-qt5' 'qt5-svg' 'kdialog')
   optdepends=('qt-at-spi')
 
   cd "${srcdir}/${pkgbase}-${pkgver}" || exit
