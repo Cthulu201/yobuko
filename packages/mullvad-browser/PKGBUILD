@@ -1,0 +1,42 @@
+# Maintainer: Cthulu201 <cthulu201@duck.com>
+
+pkgname="mullvad-browser"
+pkgver=12.0.7
+pkgrel=1
+pkgdesc="A privacy-focused web browser developed in a collaboration between Mullvad VPN and the Tor Project"
+arch=('x86_64')
+url="https://mullvad.net/en/browser"
+license=(custom)
+groups=('yobuko')
+depends=(dbus-glib ffmpeg gtk3 libpulse libxss libxt mime-types nss ttf-font)
+optdepends=('hunspell-en_US:     Spell checking, American English'
+            'libnotify:          Notification integration'
+            'networkmanager:     Location detection via available WiFi networks'
+            'pulseaudio:         Audio support'
+            'speech-dispatcher:  Text-to-Speech'
+            'xdg-desktop-portal: Screensharing with Wayland')
+options=(!strip)
+source=("https://cdn.mullvad.net/browser/${pkgver}/${pkgname}-linux64-${pkgver}_ALL.tar.xz"
+        "mullvad-browser.sh")
+sha512sums=('bd78d7d434cdc5978060d915d936447149370f1c3bbacf06f680e895245c06e30c6d2a96bcdb51883e5bbb0dd670e1aec9be6beff30557de1d5192bfe3a28c47'
+            '4ffa2d58fe67ce362e99c82125c5aab442037ffa4645b9d3ca0233cc58d071de8feb912bf01ec8196250993f05d2e21af6795823b3eb989f55a9efc30ac28509')
+
+package() {
+  cd "${srcdir}/${pkgname}" || exit
+  # Install director(y/ies)
+  install -dm0755 "${pkgdir}/usr/share/licenses/${pkgname}"
+  install -dm0755 "${pkgdir}/opt/${pkgname}"
+  install -dm0755 "${pkgdir}/usr/bin/"
+  install -Dm0644 "start-mullvad-browser.desktop" -t "${pkgdir}"/usr/share/applications
+  install -Dm0755 "${srcdir}/mullvad-browser.sh" "${pkgdir}/usr/bin/mullvad-browser"
+
+
+  mv "Browser/MullvadBrowser/Docs/Licenses/"* "${pkgdir}/usr/share/licenses/${pkgname}/"
+  rmdir "Browser/MullvadBrowser/Docs/Licenses"
+  touch "${pkgdir}/opt/mullvad-browser/system-install"
+  chmod --recursive a+r .
+  find . -executable -execdir chmod a+x '{}' +
+
+  cp -a ./Browser/* "${pkgdir}/opt/${pkgname}/"
+#  ln -s "/opt/${pkgname}/mullvad-browser.sh" "${pkgdir}/usr/bin/${pkgname}"
+}
