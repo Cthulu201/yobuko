@@ -2,7 +2,7 @@
 
 pkgname="clion"
 pkgver=2023.1.4
-pkgrel=1
+pkgrel=2
 pkgdesc="A cross-platform IDE for C and C++"
 arch=('x86_64')
 url="http://www.jetbrains.com/${_pkgname}"
@@ -13,23 +13,14 @@ options=(!strip)
 source=("https://download.jetbrains.com/cpp/CLion-${pkgver}.tar.gz")
 sha512sums=('b50ebcdb0b85ec00a9caaad6a309c8f37524a62115a8efeaa8b05819849bdda2d81bf2fae4a723d7d378fb32910a45af26aa5303006aff2e1ad96d5a4749ba90')
 
-build() {
-  cd "${srcdir}/${pkgname}-${pkgver}/lib/pty4j/linux/" || exit
-  find . -maxdepth 1 -not -path . -type d -not -name 'x86-64' -exec rm -rf {} \;
-}
-
 package() {
   cd "${srcdir}/${pkgname}-${pkgver}" || exit
-  # Install directorie(s)
-  install -dm0755 "${pkgdir}/usr/share/licenses/${pkgname}/"
-  install -dm0755 "${pkgdir}/opt/${pkgname}"
+
   install -dm0755 "${pkgdir}/usr/bin/"
+  install -dm0755 "${pkgdir}/opt/${pkgname}"
+  install -dm0755 "${pkgdir}/usr/share/licenses/${pkgname}/"
 
-  # Install license(s)
-  mv "license/"* "${pkgdir}/usr/share/licenses/${pkgname}/"
-  rmdir "license"
-
-  # Setup executable(s)
   cp -a ./* "${pkgdir}/opt/${pkgname}/"
+  cp -a "license/"* "${pkgdir}/usr/share/licenses/${pkgname}/"
   ln -s "/opt/${pkgname}/bin/${pkgname}.sh" "${pkgdir}/usr/bin/${pkgname}"
 }

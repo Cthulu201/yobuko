@@ -2,7 +2,7 @@
 
 pkgname="pycharm-professional"
 pkgver=2023.1.3
-pkgrel=1
+pkgrel=2
 pkgdesc="Python IDE for Professional Developers. Professional Edition"
 arch=('x86_64')
 url='https://www.jetbrains.com/pycharm/'
@@ -28,23 +28,14 @@ options=(!strip)
 source=("https://download.jetbrains.com/python/${pkgname}-${pkgver}.tar.gz")
 sha512sums=('edbb68ec75c0387634c3f96040a73ba7fc855e51eeac452db7a162df13999707f3794fe408cec76903ab036a3e4998726142c0e396a3bf0af9c300dfbb7bb6cb')
 
-build() {
-  cd "${srcdir}/${pkgname//-professional/""}-${pkgver}/lib/pty4j/linux/" || exit
-  find . -maxdepth 1 -not -path . -type d -not -name 'x86-64' -exec rm -rf {} \;
-}
-
 package() {
-  cd "${srcdir}/${pkgname//-professional/""}-${pkgver}" || exit
-  # Install director(y/ies)
-  install -dm0755 "${pkgdir}/usr/share/licenses/${pkgname}/"
-  install -dm0755 "${pkgdir}/opt/${pkgname}"
+  cd "${srcdir}/${pkgname%-professional}-${pkgver}" || exit
+
   install -dm0755 "${pkgdir}/usr/bin/"
+  install -dm0755 "${pkgdir}/opt/${pkgname}"
+  install -dm0755 "${pkgdir}/usr/share/licenses/${pkgname}/"
 
-  # Install license(s)
-  mv "license/"* "${pkgdir}/usr/share/licenses/${pkgname}/"
-  rmdir "license"
-
-  # Setup executable(s)
   cp -a ./* "${pkgdir}/opt/${pkgname}/"
+  cp -a "license/"* "${pkgdir}/usr/share/licenses/${pkgname}/"
   ln -s "/opt/${pkgname}/bin/${pkgname//-professional/""}.sh" "${pkgdir}/usr/bin/${pkgname}"
 }
