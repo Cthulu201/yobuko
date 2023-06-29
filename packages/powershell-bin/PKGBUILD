@@ -2,7 +2,7 @@
 
 pkgname=powershell-bin
 pkgver=7.3.5
-pkgrel=2
+pkgrel=3
 pkgdesc='A cross-platform automation and configuration tool/framework (binary package)'
 arch=('x86_64' 'armv7h' 'aarch64')
 url='https://github.com/Powershell/Powershell'
@@ -13,11 +13,16 @@ provides=('powershell')
 conflicts=('powershell')
 options=(staticlibs !strip)
 install=powershell.install
-source=("${url}/releases/download/v${pkgver}/${pkgname//-bin/""}-${pkgver}-linux-x64.tar.gz")
+source=("${pkgname}.tar.gz::${url}/releases/download/v${pkgver}/${pkgname%-bin}-${pkgver}-linux-x64.tar.gz")
+noextract=("${pkgname}.tar.gz")
 sha512sums=('ccce045ae4b94f6dd281d7439aed9f60b478c7b257ed03b36f57443fd0314f8d55b9ac16f4dbd5bbced1176cd91632cd827dacb84cd9f85bf4557751457a00de')
 
+prepare() {
+  tar xf "${pkgname}.tar.gz" --one-top-level
+}
+
 package() {
-  cd "${srcdir}" || exit
+  cd "${srcdir}/${pkgname}" || exit
 
   install -dm0755 "${pkgdir}/usr/bin"
   install -dm0755 "${pkgdir}/opt/${pkgname}"
