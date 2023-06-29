@@ -1,26 +1,18 @@
 # Maintainer: Cthulu201 <cthulu201@duck.com>
-# Contributor: Caleb Maclennan <caleb@alerque.com>
-# Contributor: José Miguel Sarasola <jmsaraur@gmail.com>
-# Contributor: Như Bảo Trương <28810481+nhubaotruong@users.noreply.github.com>
-# Contributor: Andrés Rodríguez <hello@andres.codes>
-# Contributor: Jacob Mischka <jacob@mischka.me>
-# Contributor: Manuel Mazzuola <origin.of@gmail.com>
-# Contributor: Simón Oroño <simonorono@protonmail.com>
-# Contributor: now-im <now im 627 @ gmail . com>
-# Contributor: Giusy Digital <kurmikon at libero dot it>
 
 # Check for latest release:
 # `curl https://brave-browser-downloads.s3.brave.com/latest/release.version`
 
 pkgname=brave-bin
-pkgver=1.52.126
-pkgrel=1
+pkgver=1.52.129
+pkgrel=2
 pkgdesc='A fast, private and secure web browser for PC, Mac and mobile'
 arch=(x86_64)
 url=https://brave.com
 license=(MPL2 BSD custom:chromium)
 groups=('yobuko')
 depends=('alsa-lib' 'gtk3' 'libxss' 'nss' 'ttf-font')
+makedepends=('unzip')
 optdepends=('cups:             Printer support'
             'libgnome-keyring: Enable GNOME keyring support'
             'libnotify:        Native notification support')
@@ -28,34 +20,21 @@ provides=("${pkgname%-bin}=${pkgver}" 'brave-browser')
 conflicts=("${pkgname%-bin}")
 replaces=("${pkgname%-bin}")
 options=(!strip)
-source=("https://github.com/brave/${pkgname//-bin/""}-browser/releases/download/v${pkgver}/${pkgname//-bin/""}-browser-${pkgver}-linux-amd64.zip"
-        "${pkgname}.sh")
-noextract=("${pkgname//-bin/""}-browser-${pkgver}-linux-amd64.zip")
-sha512sums=('f1bdb58f5e5448ba54385478eecc0721219fd695b194de7a83f3898229ba0d8879f6ff97a9db30894c6274229e3af278f9616fbb366e4122814fe7c194463ffe'
-            '6912f1e0b20f16078e15ce75eca61b29fd5c415c63df9bd69a547d402bf00599fdcbe1c0898b8d2dc865dc1b604f81e2ec21525ecc61a0fcafba0d9f87434540')
+source=("${pkgname}.zip::https://github.com/brave/${pkgname%-bin}-browser/releases/download/v${pkgver}/${pkgname%-bin}-browser-${pkgver}-linux-amd64.zip")
+noextract=("${pkgname}.zip")
+sha512sums=('fb903850f32ae5ed011f76975773a9106002bcfca151730f9593e227afcb73eb9c05243718c51b4ed99a7cbbba8ac355649724aceab35218467cd9ad16838842')
 
 prepare() {
-  cd "${srcdir}" || exit
-  mkdir -p brave
-  bsdtar -xf "${pkgname//-bin/""}-browser-${pkgver}-linux-amd64.zip" -C brave
-  chmod +x brave/brave
+  unzip "${pkgname}.zip" -d "${pkgname}"
 }
 
 package() {
-  cd "${srcdir}" || exit
-  # Install director(y/ies)
-  install -dm0755 "${pkgdir}/usr/lib"
-  cp -a brave "${pkgdir}/usr/lib/${pkgname}"
-  
-  # allow firejail users to get the suid sandbox working
-  chmod 4755 "${pkgdir}/usr/lib/brave-bin/chrome-sandbox"
-  
-  # Install file(s)
-  install -Dm0755 "${pkgname}.sh" "${pkgdir}/usr/bin/brave"
-  install -Dm0644 -t "${pkgdir}/usr/share/licenses/${pkgname}/" brave/LICENSE
-  pushd "${pkgdir}/usr/" || exit
-  for size in 16x16 24x24 32x32 48x48 64x64 128x128 256x256; do
-  	install -Dm0644 "lib/${pkgname}/product_logo_${size/x*/}.png" \
-  		"share/icons/hicolor/${size}/apps/brave-desktop.png"
-  done
+  cd "${srcdir}/${pkgname}" || exit
+
+  install -dm0755 "${pkgdir}/usr/bin"
+  install -dm0755 "${pkgdir}/opt/${pkgname}"
+  install -Dm0644 "LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+
+  cp -a ./* "${pkgdir}/opt/${pkgname}/"
+  ln -s "/opt/${pkgname}/${pkgname%-bin}-browser" "${pkgdir}/usr/bin/${pkgname%-bin}-browser"
 }
