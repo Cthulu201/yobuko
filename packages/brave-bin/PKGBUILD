@@ -4,8 +4,8 @@
 # `curl https://brave-browser-downloads.s3.brave.com/latest/release.version`
 
 pkgname=brave-bin
-pkgver=1.52.129
-pkgrel=2
+pkgver=1.56.1
+pkgrel=1
 pkgdesc='A fast, private and secure web browser for PC, Mac and mobile'
 arch=(x86_64)
 url=https://brave.com
