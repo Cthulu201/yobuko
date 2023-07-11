@@ -1,0 +1,38 @@
+# Maintainer: Cthulu201 <cthulu201@duck.com>
+
+pkgname=nitrokey-app2-bin-git
+pkgver=v2.1.1.r16.g5a5e16a
+pkgrel=1
+pkgdesc='Application allows to manage Nitrokey 3 devices'
+arch=('x86_64')
+url='https://github.com/Nitrokey/nitrokey-app2'
+license=('Apache')
+groups=('yobuko')
+depends=('python' 'python-pynitrokey' 'libglvnd')
+makedepends=('git')
+provides=('nitrokey-app2')
+#options=(staticlibs !strip)
+#install=powershell.install
+source=("${pkgname}::git+${url}")
+sha512sums=('SKIP')
+
+pkgver() {
+  cd "${pkgname}"
+  ( set -o pipefail
+    git describe --long --abbrev=7 2>/dev/null | sed 's/\([^-]*-g\)/r\1/;s/-/./g' ||
+    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short=7 HEAD)"
+  )
+}
+
+build(){
+  cd "${srcdir}/${pkgname}"
+  make update-venv
+  source venv/bin/activate
+  make build
+}
+
+package() {
+  cd "${srcdir}/${pkgname}"
+#  install -dm755 "${pkgdir}/usr/bin/"
+#  install -Dm755 bin/0d1n "${pkgdir}/usr/bin/"
+}
