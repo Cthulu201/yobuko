@@ -5,7 +5,7 @@
 # Upstream URL: https://github.com/platformio/platformio
 
 pkgname=('platformio' 'platformio-udev-rules')
-pkgver=6.1.7
+pkgver=6.1.9
 pkgrel=1
 pkgdesc="A cross-platform code builder and library manager"
 arch=('any')
@@ -32,7 +32,7 @@ optdepends=('python-click-completion: for shell completions'
             'python-shellingham:       for shell completions')
 conflicts=('platformio-git')
 source=("${url}/archive/refs/tags/v${pkgver}.tar.gz")
-sha512sums=('de38560e3bafc0ce97836a722122800e9cd31a4c8b6e97cfc9d490ee4d6c5112f87a45d81ec9b191eb4f678c330de4a797be5e176564f6e36fcb9432b47f52d8')
+sha512sums=('9da382e3277f4a101437992a5e56cfd831f67784921938953dd4e74a961f9b3ce99de03c1c36eb6829b20d43276d5d88b36b6be3760b9c155da15dfd84b22ff4')
 
 package_platformio() {
   cd "${srcdir}/platformio-core-${pkgver}" || exit

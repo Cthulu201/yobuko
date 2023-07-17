@@ -2,16 +2,16 @@
 # Contributor: lsf <lsf at pfho dot net>
 
 pkgname=librewolf-bin
-provides=("${pkgname//-bin/""}")
-conflicts=("${pkgname//-bin/""}")
-replaces=("${pkgname//-bin/""}")
-pkgver=115.0.1
-pkgrel=1
+pkgver=115.0.2
+pkgrel=2
 pkgdesc="Community-maintained fork of Firefox, focused on privacy, security and freedom."
 arch=(x86_64)
 license=(MPL GPL LGPL)
 groups=('yobuko')
 url="https://librewolf-community.gitlab.io/"
+provides=("${pkgname//-bin/""}")
+conflicts=("${pkgname//-bin/""}")
+replaces=("${pkgname//-bin/""}")
 depends=('gtk3' 'libxt' 'startup-notification' 'mime-types' 'dbus-glib'
          'nss' 'ttf-font' 'libpulse' 'ffmpeg')
 optdepends=('networkmanager:    Location detection via available WiFi networks'
@@ -27,7 +27,7 @@ install='librewolf-bin.install'
 
 _project_id=44042130
 source=("https://gitlab.com/api/v4/projects/${_project_id}/packages/generic/${pkgname//-bin/""}/${pkgver}-${pkgrel}/${pkgname//-bin/""}-${pkgver}-${pkgrel}-linux-x86_64-package.tar.bz2")
-sha512sums=('6fe57b46b5f9d13de75997567bb1bd57c176885c594f69297ae56980245d17b79b7dee244fdb43f41dc548ff1d64900e8437d457f260e33aa96acd770d8e5b82')
+sha512sums=('d638b31681d37af996fbf8d44d18d5593ead91ab36aa1cdf23aebcf5287232c74ae5c1e7326752ecb013a9b947a879936c7c09643f2f43bbdd19c9c50498b2e1')
 
 package() {
   cd "${srcdir}" || exit

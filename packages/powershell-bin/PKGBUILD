@@ -1,8 +1,8 @@
 # Maintainer: Cthulu201 <cthulu201@duck.com>
 
 pkgname=powershell-bin
-pkgver=7.3.5
-pkgrel=3
+pkgver=7.3.6
+pkgrel=1
 pkgdesc='A cross-platform automation and configuration tool/framework (binary package)'
 arch=('x86_64' 'armv7h' 'aarch64')
 url='https://github.com/Powershell/Powershell'
@@ -13,16 +13,16 @@ provides=('powershell')
 conflicts=('powershell')
 options=(staticlibs !strip)
 install=powershell.install
-source=("${pkgname}.tar.gz::${url}/releases/download/v${pkgver}/${pkgname%-bin}-${pkgver}-linux-x64.tar.gz")
+source=("${pkgname}-${pkgver}.tar.gz::${url}/releases/download/v${pkgver}/${pkgname%-bin}-${pkgver}-linux-x64.tar.gz")
 noextract=("${pkgname}.tar.gz")
-sha512sums=('ccce045ae4b94f6dd281d7439aed9f60b478c7b257ed03b36f57443fd0314f8d55b9ac16f4dbd5bbced1176cd91632cd827dacb84cd9f85bf4557751457a00de')
+sha512sums=('da2d19fef2dc056f5012c1e8e3a027f0c3b6fb35f1d5d4bb0a17dc8ddbc015c38269c5b4459a56280bf3191d85bf4513b53d51ea3202bf071df439374a5a5870')
 
 prepare() {
-  tar xf "${pkgname}.tar.gz" --one-top-level
+  tar xf "${pkgname}-${pkgver}.tar.gz" --one-top-level
 }
 
 package() {
-  cd "${srcdir}/${pkgname}" || exit
+  cd "${srcdir}/${pkgname}-${pkgver}" || exit
 
   install -dm0755 "${pkgdir}/usr/bin"
   install -dm0755 "${pkgdir}/opt/${pkgname}"
