@@ -1,8 +1,8 @@
 # Maintainer: Cthulu201 <cthulu201@duck.com>
 
 pkgname="datagrip"
-pkgver=2023.1.2
-pkgrel=2
+pkgver=2023.2
+pkgrel=1
 pkgdesc="A database management environment for developers"
 arch=('x86_64')
 url="https://www.jetbrains.com/datagrip"
@@ -14,7 +14,7 @@ optdepends=('mariadb:    Fast SQL database server derived from MySQL'
             'sqlite:     A C library that implements an SQL database engine')
 options=(!strip)
 source=("https://download.jetbrains.com/datagrip/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('b1dbeb7db91b48046331b7775f256ac59b59eb9d867cd34d673fd18acc35fa1529c0bc7cc923a4adc8e8bf3a0d4bce19778f042aec014c214835e9f676df7a46')
+sha512sums=('49c3bcbaa670e7dfa05cb423909a3064141284b770fdaeb37b89fd3f9e05e963b099085d9af116f86de1b2ef516c0aa1c340657b08e8be5e3a8427e3a070d77c')
 
 package() {
   cd "${srcdir}/${pkgname:+DataGrip}-${pkgver}" || exit
