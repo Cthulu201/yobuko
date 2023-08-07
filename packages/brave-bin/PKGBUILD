@@ -4,7 +4,7 @@
 # `curl https://brave-browser-downloads.s3.brave.com/latest/release.version`
 
 pkgname=brave-bin
-pkgver=1.56.16
+pkgver=1.56.20
 pkgrel=1
 pkgdesc='A fast, private and secure web browser for PC, Mac and mobile'
 arch=(x86_64)
@@ -22,7 +22,7 @@ replaces=("${pkgname%-bin}")
 options=(!strip)
 source=("${pkgname}.zip::https://github.com/brave/${pkgname%-bin}-browser/releases/download/v${pkgver}/${pkgname%-bin}-browser-${pkgver}-linux-amd64.zip")
 noextract=("${pkgname}.zip")
-sha512sums=('fb903850f32ae5ed011f76975773a9106002bcfca151730f9593e227afcb73eb9c05243718c51b4ed99a7cbbba8ac355649724aceab35218467cd9ad16838842')
+sha512sums=('3cd19364f736a5f031e1b47d01cdf40065e19fa0a16e56eb6bc023fa626faef3b3a771966bc6b36a3c0a6c515cf1091baf48006765f6e3aaa6e007262f12292f')
 
 prepare() {
   unzip "${pkgname}.zip" -d "${pkgname}"
