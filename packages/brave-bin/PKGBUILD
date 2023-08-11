@@ -5,7 +5,7 @@
 
 pkgname=brave-bin
 pkgver=1.56.20
-pkgrel=1
+pkgrel=2
 pkgdesc='A fast, private and secure web browser for PC, Mac and mobile'
 arch=(x86_64)
 url=https://brave.com
@@ -21,15 +21,15 @@ conflicts=("${pkgname%-bin}")
 replaces=("${pkgname%-bin}")
 options=(!strip)
 source=("${pkgname}-${pkgver}.zip::https://github.com/brave/${pkgname%-bin}-browser/releases/download/v${pkgver}/${pkgname%-bin}-browser-${pkgver}-linux-amd64.zip")
-noextract=("${pkgname}.zip")
+noextract=("${pkgname}-${pkgver}.zip")
 sha512sums=('3cd19364f736a5f031e1b47d01cdf40065e19fa0a16e56eb6bc023fa626faef3b3a771966bc6b36a3c0a6c515cf1091baf48006765f6e3aaa6e007262f12292f')
 
 prepare() {
-  unzip "${pkgname}-${pkgver}.zip" -d "${pkgname}"
+  unzip "${pkgname}-${pkgver}.zip" -d "${pkgname}-${pkgver}"
 }
 
 package() {
-  cd "${srcdir}/${pkgname}" || exit
+  cd "${srcdir}/${pkgname}-${pkgver}" || exit
 
   install -dm0755 "${pkgdir}/usr/bin"
   install -dm0755 "${pkgdir}/opt/${pkgname}"
