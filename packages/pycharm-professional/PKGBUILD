@@ -1,7 +1,7 @@
 # Maintainer: Cthulu201 <cthulu201@duck.com>
 
 pkgname="pycharm-professional"
-pkgver=2023.2
+pkgver=2023.2.1
 pkgrel=1
 pkgdesc="Python IDE for Professional Developers. Professional Edition"
 arch=('x86_64')
@@ -26,7 +26,7 @@ provides=('pycharm-professional')
 conflicts=('pycharm' 'pycharm-community-edition')
 options=(!strip)
 source=("https://download.jetbrains.com/python/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('47be9af5d01e157df990a5c745ad12ddebe1963a164f379d3176e9b9cd064a02969b03b27116b38feec08f412857f1f1161015129d7c0c704e05f1fb5d331312')
+sha512sums=('79f5a8ea7b300332948bcef9330f73fbee7feb2e007c31ae4894d42fbb6acb5ab07e4c004c98a484c80b1c222f88339552f4ab60ce43c159583c3633f0862ca1')
 
 package() {
   cd "${srcdir}/${pkgname%-professional}-${pkgver}" || exit
