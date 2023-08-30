@@ -9,7 +9,7 @@
 # https://www.dropbox.com/scl/fo/0eu2dsn07fy5k0gt5fy74/AABbXqKHbY_mobVJhqgfOXYja/Glyph/Dropbox/SVG/DropboxGlyph_Blue.svg
 
 pkgname=dropbox
-pkgver=178.4.4811
+pkgver=181.4.5678
 pkgrel=1
 pkgdesc="A free service that lets you bring your photos, docs, and videos anywhere and share them easily."
 arch=("x86_64")
@@ -29,12 +29,12 @@ source=("${pkgname}-${pkgver}.tar.gz::https://www.dropbox.com/download?plat=lnx.
         "terms.txt"
         "dropbox.service"
         "dropbox@.service")
-sha512sums=('946370139160787f5e7b7e96d5ed546d43501db392e7b43dd25bb6aff1b35f359d8e753da1b23b6e1c9d886043b24a78ccca965e8e8f8cf24805bf6cb3215155'
+sha512sums=('067b620535a398a77c9d8bbf6e0a924feb5730135970f900e34c6aa71cae9c239fcb60b41ad742937ca96019b5d617df37379db9244300c149e3bdf0b196e028'
             '9202344b904dcd7955e5a355dadf537d1544140d74f8a33bdc40e18e36661e3a474d11cf17613eaebf4e76c170d8413d99abdedfb8635784bcd6892b4b259712'
             'c0cc64e924a70169a33744955e96172f8af6cddb5515c3988df1c7c2aa106b86989de2e1091714976c699b3f9751fb4da5dbffd5157ab9be2bc09c0aeebd8635'
             'edb11b5a07b6a1512a5345d8ce476562fbfd9ec5642f36315a0969a2583f0e6ce371d39d25063af3734f9527ad53abdc29278c046abc2921222777af6f693a4f'
             '09b4199b19fa9a8ae225185837e668c16be6eddf0d2b54fd232e2ff1e463b329df078b8ff28eb0f9877de66d1cacb31b30b3272c9b3c0a981f90a371653239a8')
-validpgpkeys=('1C61A2656FB57B7E4DE0F4C1FC918B335044912E') # Dropbox Automatic Signing Key <linux@dropbox.com>
+#validpgpkeys=('1C61A2656FB57B7E4DE0F4C1FC918B335044912E') # Dropbox Automatic Signing Key <linux@dropbox.com>
 
 prepare() {
   gendesk --pkgname="${pkgname}" --pkgdesc="${pkgdesc}" --categories=Network PKGBUILD
