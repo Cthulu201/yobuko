@@ -1,7 +1,7 @@
 # Maintainer: Cthulu201 <cthulu201@duck.com>
 
 pkgname="clion"
-pkgver=2023.2.1
+pkgver=2023.2.2
 pkgrel=1
 pkgdesc="A cross-platform IDE for C and C++"
 arch=('x86_64')
@@ -11,7 +11,7 @@ groups=('yobuko')
 depends=('python')
 options=(!strip)
 source=("https://download.jetbrains.com/cpp/CLion-${pkgver}.tar.gz")
-sha512sums=('f599ebd7a92b3e03a6eb47ea1706eae291ac9d12ebfcf8a2527106c20bc501c793d2407c51b0fa48cb43fb0ce1836bafb6b476492750a338e3c2f334fdfcc6a7')
+sha512sums=('b50dd0f24a6cadeacfacf7727d9c7e6765e3cc56d6415b271659b9eee8f9bad39cab6d5806216b020c5c58e49e97d6de0cca7894316b179f78e6d250fbe51242')
 
 package() {
   cd "${srcdir}/${pkgname}-${pkgver}" || exit

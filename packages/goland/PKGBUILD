@@ -1,7 +1,7 @@
 # Maintainer: Cthulu201 <cthulu201@duck.com>
 
 pkgname="goland"
-pkgver=2023.2.1
+pkgver=2023.2.2
 pkgrel=1
 pkgdesc="Capable and Ergonomic Go IDE"
 arch=('x86_64')
@@ -11,7 +11,7 @@ groups=('yobuko')
 depends=('glib2')
 options=('!strip')
 source=("https://download.jetbrains.com/go/${pkgname}-${pkgver}.tar.gz")
-sha512sums=('855d2ceb9efe362b95e201984d22aea4870f6494f9e739df3073159ea8e8d35a66fb16750ba8102f69703c35bc9670c227936cb9f5fa4903ffca93ce72f2e24a')
+sha512sums=('eb49b5672f0a4a8c5391d3cc4a001aacc09fc7794006310ab7fc81904ea10c3d915b074c6668f0bf27d74dc5f064514ad3f5392ed5ce3eeb4969e626abacdab2')
 
 package() {
   cd "${srcdir}/${pkgname:+GoLand}-${pkgver}" || exit

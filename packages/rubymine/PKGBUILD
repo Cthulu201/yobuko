@@ -1,7 +1,7 @@
 # Maintainer: Cthulu201 <cthulu201@duck.com>
 
 pkgname="rubymine"
-pkgver=2023.2.1
+pkgver=2023.2.2
 pkgrel=1
 pkgdesc="Ruby and Rails IDE with the full stack of essential developer tools"
 arch=('x86_64')
@@ -12,7 +12,7 @@ depends=(desktop-file-utils gtk-update-icon-cache)
 optdepends=('ruby: Ruby run/debug support')
 options=(!strip)
 source=("${pkgname}-${pkgver}::https://download.jetbrains.com/ruby/${pkgname:+RubyMine}-${pkgver}.tar.gz")
-sha512sums=('e047a482f2c3086f8da8a499d9fb2825d41cc7847da5016a69e81228548569ddbf7652e30e199382f1b610b02b5b1c79715eb8da4731893a01d700c69f6aaf65')
+sha512sums=('2b4064dad0623da66d95ea478a3ace6b6dc24f4df5743bbafa0316e7f06632f934144c3721b1392684bb67cbc8691d5859afead1b7795b0be77466cfbae9d82a')
 
 package() {
   cd "${srcdir}/${pkgname:+RubyMine}-${pkgver%.4}" || exit
