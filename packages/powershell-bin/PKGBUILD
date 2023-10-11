@@ -1,7 +1,7 @@
 # Maintainer: Cthulu201 <cthulu201@duck.com>
 
 pkgname=powershell-bin
-pkgver=7.3.7
+pkgver=7.3.8
 pkgrel=1
 pkgdesc='A cross-platform automation and configuration tool/framework (binary package)'
 arch=('x86_64' 'armv7h' 'aarch64')
@@ -15,7 +15,7 @@ options=(staticlibs !strip)
 install=powershell.install
 source=("${pkgname}-${pkgver}.tar.gz::${url}/releases/download/v${pkgver}/${pkgname%-bin}-${pkgver}-linux-x64.tar.gz")
 noextract=("${pkgname}.tar.gz")
-sha512sums=('42e148a737afed971e61929e8315d59e1f6a118fc8f2982b0bf0a1d05d73628e99d77d4b4b12b99805f40e9c2425e8bf9dfae2fc7fd04b5b8ba4de236df1cd8f')
+sha512sums=('d2cd1619fc4e1c26166cf4d3f5fcf9595d4efad4099cbca7593dc048fdc199e90ffabc157b99f0d3c623ece17d95d8587192597d34172aaf398393a6af6c96eb')
 
 prepare() {
   tar xf "${pkgname}-${pkgver}.tar.gz" --one-top-level
