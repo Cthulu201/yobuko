@@ -1,0 +1,35 @@
+# Maintainer: Cthulu201 <cthulu201@duck.com>
+
+pkgname=thorium-browser
+pkgver=117.0.5938.157
+pkgrel=1
+pkgdesc='Chromium fork named after radioactive element No. 90'
+arch=(x86_64)
+url=https://thorium.rocks/
+license=(BSD3)
+groups=('yobuko')
+depends=('gtk3' 'nss' 'alsa-lib' 'xdg-utils' 'libxss' 'libcups' 'libgcrypt'
+         'ttf-liberation' 'dbus' 'libpulse' 'pciutils' 'libva' 'libffi'
+         'desktop-file-utils' 'hicolor-icon-theme')
+makedepends=('unzip')
+options=(!strip)
+source=("${pkgname}-${pkgver}.zip::https://github.com/Alex313031/${pkgname%-browser}/releases/download/M${pkgver}/${pkgname}_${pkgver}_amd64.zip"
+        "https://raw.githubusercontent.com/Alex313031/thorium/main/LICENSE.md")
+noextract=("${pkgname}-${pkgver}.zip")
+sha512sums=('57ce89139c64ce1656d2071d4e11f1ebef221101fc0650f23bd97744da22d0e3295282c35716a00007862892deacd41b6c039aad803fe2c1594fc22503101877'
+            'e0fda1ee2d4cc9835d842b7059b239ddaf04c8547f2036dd6fb06d368b725531f12b628f7ca32de63a9a0e141cc156d2e632e09ff605fc7069596b7d6a70a1f4')
+
+prepare() {
+  unzip "${pkgname}-${pkgver}.zip" -d "${pkgname}-${pkgver}"
+}
+
+package() {
+  cd "${srcdir}/${pkgname}-${pkgver}" || exit
+
+  install -dm0755 "${pkgdir}/usr/bin"
+  install -dm0755 "${pkgdir}/opt/${pkgname}"
+  install -Dm0644 "${srcdir}/LICENSE.md" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.md"
+
+  cp -a ./* "${pkgdir}/opt/${pkgname}/"
+  ln -s "/opt/${pkgname}/${pkgname%-browser}" "${pkgdir}/usr/bin/${pkgname%-browser}"
+}
