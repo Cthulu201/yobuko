@@ -2,7 +2,7 @@
 
 pkgname=thorium-browser
 pkgver=117.0.5938.157
-pkgrel=1
+pkgrel=2
 pkgdesc='Chromium fork named after radioactive element No. 90'
 arch=(x86_64)
 url=https://thorium.rocks/
@@ -31,5 +31,5 @@ package() {
   install -Dm0644 "${srcdir}/LICENSE.md" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.md"
 
   cp -a ./* "${pkgdir}/opt/${pkgname}/"
-  ln -s "/opt/${pkgname}/${pkgname%-browser}" "${pkgdir}/usr/bin/${pkgname%-browser}"
+  ln -s "/opt/${pkgname}/${pkgname%-browser}" "${pkgdir}/usr/bin/${pkgname}"
 }
