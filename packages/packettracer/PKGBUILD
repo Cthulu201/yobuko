@@ -8,7 +8,7 @@
 
 pkgname=packettracer
 pkgver=8.2.1
-pkgrel=2
+pkgrel=3
 pkgdesc="Cisco PacketTracer 7.3.1 installation package"
 arch=('x86_64')
 url="https://www.netacad.com/courses/packet-tracer"
@@ -36,8 +36,7 @@ package() {
   find "${pkgdir}/opt/packettracer/help/default/NetconRestAPI/" -type d -exec chmod 775 {} \;
   ln -s "/opt/packettracer/packettracer" "${pkgdir}/usr/bin/packettracer"
   ln -s "/usr/lib/libdouble-conversion.so" "${pkgdir}/opt/packettracer/bin/libdouble-conversion.so.1"
-#  sed -i 's|/opt/pt|/opt/packettracer|' "${pkgdir}/opt/packettracer/linguist" "${pkgdir}/opt/packettracer/packettracer" "${pkgdir}/usr/share/applications/cisco-pt.desktop" "${pkgdir}/usr/share/applications/cisco-ptsa.desktop"
-#  sed -i -e "\$aCategories=Network;" "${pkgdir}/usr/share/applications/cisco-pt.desktop" "${pkgdir}/usr/share/applications/cisco-ptsa.desktop"
+  sed -i 's|/opt/pt|/opt/packettracer|' "${pkgdir}/opt/packettracer/linguist" "${pkgdir}/opt/packettracer/packettracer"
   install -Dm0755 "${srcdir}/packettracer.sh" "${pkgdir}/etc/profile.d/packettracer.sh"
   install -Dm0644 "${pkgdir}/opt/packettracer/help/default/copyrights.htm" "${pkgdir}/usr/share/licenses/${pkgname}/COPYRIGHT"
 }
