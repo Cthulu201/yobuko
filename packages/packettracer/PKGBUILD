@@ -7,8 +7,8 @@
 # Contributor: z3ntu <WEI16416@spengergasse.at>
 
 pkgname=packettracer
-pkgver=8.2.0
-pkgrel=4
+pkgver=8.2.1
+pkgrel=1
 pkgdesc="Cisco PacketTracer 7.3.1 installation package"
 arch=('x86_64')
 url="https://www.netacad.com/courses/packet-tracer"
@@ -16,9 +16,9 @@ license=('custom')
 groups=('yobuko')
 depends=('openssl>=1.0' 'dbus' 'icu' 'glib2' 'libxml2' 'libjpeg-turbo' 'nss' 'libxss' 'java-runtime>=1.7.0')
 options=('!strip' '!emptydirs')
-source=('CiscoPacketTracer_820_Ubuntu_64bit.deb'
+source=('CiscoPacketTracer_821_Ubuntu_64bit.deb'
         'packettracer.sh')
-sha512sums=('7e1c64af03d3bd99ed627d66e221094f80a28a87229ddb9ae5b98a5e38e28f45dfdd7ecc31e7253b17c11b7124c183125063c2a8e13bfb139cae6dd184b49226'
+sha512sums=('21049b337714c216ce9257f4dda3f157cbd282adee30e688dfcb61681f381a60f839d376d97ddb66e4e716a6bdce6346ea2047c05bbfaa19d507eda4f52c3cb2'
             '639947d7a388ff3c787c359504295c6890de763ee61edd04c6dde3913a1bf49c3e2c91cfadadc759169da4d72f09fe6493a35c56d9fd6de0443ae9e9140b8f5f')
 
 package() {
@@ -36,8 +36,8 @@ package() {
   find "${pkgdir}/opt/packettracer/help/default/NetconRestAPI/" -type d -exec chmod 775 {} \;
   ln -s "/opt/packettracer/packettracer" "${pkgdir}/usr/bin/packettracer"
   ln -s "/usr/lib/libdouble-conversion.so" "${pkgdir}/opt/packettracer/bin/libdouble-conversion.so.1"
-  sed -i 's|/opt/pt|/opt/packettracer|' "${pkgdir}/opt/packettracer/linguist" "${pkgdir}/opt/packettracer/packettracer" "${pkgdir}/usr/share/applications/cisco-pt.desktop" "${pkgdir}/usr/share/applications/cisco-ptsa.desktop"
-  sed -i -e "\$aCategories=Network;" "${pkgdir}/usr/share/applications/cisco-pt.desktop" "${pkgdir}/usr/share/applications/cisco-ptsa.desktop"
+#  sed -i 's|/opt/pt|/opt/packettracer|' "${pkgdir}/opt/packettracer/linguist" "${pkgdir}/opt/packettracer/packettracer" "${pkgdir}/usr/share/applications/cisco-pt.desktop" "${pkgdir}/usr/share/applications/cisco-ptsa.desktop"
+#  sed -i -e "\$aCategories=Network;" "${pkgdir}/usr/share/applications/cisco-pt.desktop" "${pkgdir}/usr/share/applications/cisco-ptsa.desktop"
   install -Dm0755 "${srcdir}/packettracer.sh" "${pkgdir}/etc/profile.d/packettracer.sh"
   install -Dm0644 "${pkgdir}/opt/packettracer/help/default/copyrights.htm" "${pkgdir}/usr/share/licenses/${pkgname}/COPYRIGHT"
 }

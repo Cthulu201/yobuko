@@ -1,7 +1,7 @@
 # Maintainer: Cthulu201 <cthulu201@duck.com>
 
 pkgname=nitrokey-app2-bin
-pkgver=2.1.2
+pkgver=2.1.4
 pkgrel=1
 pkgdesc='Application allows to manage Nitrokey 3 devices'
 arch=('x86_64')
@@ -12,11 +12,11 @@ depends=('python' 'python-pynitrokey')
 provides=('nitrokey-app2')
 options=(staticlibs !strip)
 source=("${pkgname}.tar.gz::${url}/releases/download/v${pkgver}/${pkgname%2-bin}-v${pkgver}-x64-linux-binary.tar.gz")
-sha512sums=('282ed2f43778d018802a77aacf1997d56a652daa8f02779e4b61010ab7f1e593e3f28be9ff3031af1d198b9e6b646bc71fe9190f4c306e2569997bbba5747056')
+sha512sums=('2033e7686877d6dd96ddf1f1da231dd714ed772d4abbe64fc99703fa7e04d9c7d0f3c456e1c7340b4644541260f190654a0042f3dfbe46d10ab0c0c75922d0fb')
 
 prepare() {
   tar xf "${pkgname}.tar.gz" --one-top-level
-  mv "${pkgname}/nitrokey-app-v2.1.1-x64-linux-binary" "${pkgname}/${pkgname%-bin}"
+  mv "${pkgname}/nitrokey-app-v${pkgver}-x64-linux-binary" "${pkgname}/${pkgname%-bin}"
   chmod +x "${pkgname}/${pkgname%-bin}"
 }
 
