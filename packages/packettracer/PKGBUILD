@@ -8,7 +8,7 @@
 
 pkgname=packettracer
 pkgver=8.2.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Cisco PacketTracer 7.3.1 installation package"
 arch=('x86_64')
 url="https://www.netacad.com/courses/packet-tracer"
@@ -16,7 +16,7 @@ license=('custom')
 groups=('yobuko')
 depends=('openssl>=1.0' 'dbus' 'icu' 'glib2' 'libxml2' 'libjpeg-turbo' 'nss' 'libxss' 'java-runtime>=1.7.0')
 options=('!strip' '!emptydirs')
-source=('CiscoPacketTracer_821_Ubuntu_64bit.deb'
+source=('Packet_Tracer821_amd64_signed.deb'
         'packettracer.sh')
 sha512sums=('21049b337714c216ce9257f4dda3f157cbd282adee30e688dfcb61681f381a60f839d376d97ddb66e4e716a6bdce6346ea2047c05bbfaa19d507eda4f52c3cb2'
             '639947d7a388ff3c787c359504295c6890de763ee61edd04c6dde3913a1bf49c3e2c91cfadadc759169da4d72f09fe6493a35c56d9fd6de0443ae9e9140b8f5f')
