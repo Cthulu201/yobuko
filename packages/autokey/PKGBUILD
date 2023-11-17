@@ -6,9 +6,9 @@
 pkgbase="autokey"
 pkgname=("${pkgbase}-common" "${pkgbase}-gtk" "${pkgbase}-qt")
 pkgver=0.96.0
-pkgrel=2
+pkgrel=3
 pkgdesc="A desktop automation utility for Linux and X11"
-arch=('any')
+arch=('x86_64')
 url="https://github.com/${pkgbase}/${pkgbase}"
 license=('GPL3')
 makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')

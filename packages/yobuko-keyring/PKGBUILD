@@ -2,7 +2,7 @@
 
 pkgname=yobuko-keyring
 pkgver=20210827
-pkgrel=3
+pkgrel=4
 pkgdesc='Yobuko PGP keyring'
 arch=(any)
 url='https://cthulu201.github.io/'
