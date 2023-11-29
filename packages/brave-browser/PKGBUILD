@@ -2,7 +2,7 @@
 
 pkgname=brave-browser
 pkgver=1.60.118
-pkgrel=1
+pkgrel=4
 pkgdesc='A fast, private and secure web browser for PC, Mac and mobile'
 arch=(x86_64)
 url=https://brave.com
@@ -29,6 +29,12 @@ package() {
   install -dm0755 "${pkgdir}/usr/bin"
   install -dm0755 "${pkgdir}/opt/${pkgname}"
   install -Dm0644 "LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+
+  for size in 16 24 32 48 64 128 256; do
+    install -Dm644 "product_logo_${size}.png" \
+      "${pkgdir}/usr/share/icons/hicolor/${size}x${size}/apps/brave-browser.png"
+  done
+  rm product_logo*
 
   cp -a ./* "${pkgdir}/opt/${pkgname}/"
   ln -s "/opt/${pkgname}/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
