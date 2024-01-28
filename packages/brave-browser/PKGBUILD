@@ -1,7 +1,7 @@
 # Maintainer: Cthulu201 <cthulu201@duck.com>
 
 pkgname=brave-browser
-pkgver=1.61.120
+pkgver=1.62.153
 pkgrel=1
 pkgdesc='A fast, private and secure web browser for PC, Mac and mobile'
 arch=(x86_64)
@@ -17,7 +17,7 @@ replaces=("${pkgname%-browser}-bin")
 options=(!strip)
 source=("${pkgname}-${pkgver}.zip::https://github.com/brave/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}-linux-amd64.zip")
 noextract=("${pkgname}-${pkgver}.zip")
-sha512sums=('6770c67bc0c6208a2d73460769b4ec4aff16f720d932e70b0b3074579cf31ede00f9c5ce4e4a4eb5bc4bcbed0de0499c956aa086484ebc9af87958f5ef43e176')
+sha512sums=('ed57dde117dd64cc24f58c191a6854ba3391f13a758b6c608217dff78d9e8ca84ea7df49564db883a9b476be68b9fa4556e9269798d374cdd97fd4fc4a6fe046')
 
 prepare() {
   unzip "${pkgname}-${pkgver}.zip" -d "${pkgname}-${pkgver}"
