@@ -1,7 +1,7 @@
 # Maintainer: Cthulu201 <cthulu201@duck.com>
 
 pkgname=thorium-browser
-pkgver=119.0.6045.214
+pkgver=120.0.6099.235
 pkgrel=1
 pkgdesc='Chromium fork named after radioactive element No. 90'
 arch=(x86_64)
@@ -16,8 +16,8 @@ options=(!strip)
 source=("${pkgname}-${pkgver}.zip::https://github.com/Alex313031/${pkgname%-browser}/releases/download/M${pkgver}/${pkgname}_${pkgver}_amd64.zip"
         "https://raw.githubusercontent.com/Alex313031/thorium/main/LICENSE.md")
 noextract=("${pkgname}-${pkgver}.zip")
-sha512sums=('b0160a02c0a048685eaa2e0af8eb46f1b2df3a6c2c857b9cdcbf93f4d2a6d3e7666a02b0e6ea5b7caa952e04808e7d127b86ebd5d76bc9f4623fb6ff45153c5c'
-            '5ce66769f90e532bf42deae2e6d7476934bddd3a201326217ede5d1fcad3569226b122f6a44f85cebd732b7b63cec6f0113d22e87442b07ac802f26067e5bbb8')
+sha512sums=('1bfb9df05d8a3132e7b23fde33869ca6d3ae6e0043b982ade6740b1c4e7f114d8ff298be38b394b1372746650df6ebe7e9de6568181f247061a4eb1617f81a72'
+            'e0fda1ee2d4cc9835d842b7059b239ddaf04c8547f2036dd6fb06d368b725531f12b628f7ca32de63a9a0e141cc156d2e632e09ff605fc7069596b7d6a70a1f4')
 
 prepare() {
   unzip "${pkgname}-${pkgver}.zip" -d "${pkgname}-${pkgver}"
