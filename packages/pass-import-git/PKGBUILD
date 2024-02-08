@@ -1,30 +1,42 @@
 # Maintainer: Alexandre Pujol <alexandre@pujol.io>
 
-pkgname='pass-import'
-pkgver=3.4
-pkgrel=2
+pkgname='pass-import-git'
+_pkgname="${pkgname%-git}"
+pkgver=v3.4.r28.gf0416de
+pkgrel=1
 pkgdesc='A pass extension for importing data from most existing password managers.'
 arch=('any')
 url='https://github.com/roddhjav/pass-import'
 license=('GPL3')
 depends=( 'pass' 'python' 'python-pyaml' 'python-zxcvbn' 'python-requests')
-makedepends=('python-setuptools')
+makedepends=('python-setuptools' 'git' 'pandoc')
 optdepends=('python-defusedxml: xml based importers'
             'python-pykeepass: direct keepass database import'
             'python-secretstorage: gnome-keyring import'
             'python-cryptography: password encrypted otp import'
             'python-magic: Detection of file decryption')
-source=(https://github.com/roddhjav/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.gz{,.asc})
-sha512sums=('cea580eaa18783f992f2a3bc28b3e47494640256f7ee44a98632b9498fe48516d6c36bf9af525b22f300165c3da002b80ff46163b5960ab7c5a1c20e3a1a0442'
-            'SKIP')
-validpgpkeys=('06A26D531D56C42D66805049C5469996F0DF68EC')
+replaces=("pass-import")
+source=("${pkgname}::git+${url}")
+sha256sums=('SKIP')
+
+pkgver() {
+  cd "${srcdir}/${pkgname}" || exit
+  ( set -o pipefail
+    git describe --long --abbrev=7 2>/dev/null | sed 's/\([^-]*-g\)/r\1/;s/-/./g' ||
+    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short=7 HEAD)"
+  )
+}
 
 build() {
-  cd "${srcdir}/${pkgname}-${pkgver}" || exit
+  cd "${srcdir}/${pkgname}" || exit
   python setup.py build
 }
 
 package() {
-  cd "${srcdir}/${pkgname}-${pkgver}" || exit
+  cd "${srcdir}/${pkgname}/share/man/man1" || exit
+  pandoc -o pass-import.1 pass-import.md
+  pandoc -o pimport.1 pimport.md
+
+  cd "${srcdir}/${pkgname}" || exit
   python setup.py install --root="${pkgdir}" -O1 --skip-build
 }
