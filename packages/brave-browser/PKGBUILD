@@ -2,7 +2,7 @@
 
 pkgname=brave-browser
 pkgver=1.64.109
-pkgrel=1
+pkgrel=2
 pkgdesc='A fast, private and secure web browser for PC, Mac and mobile'
 arch=(x86_64)
 url=https://brave.com
@@ -15,9 +15,11 @@ optdepends=('cups:             Printer support'
             'libnotify:        Native notification support')
 replaces=("${pkgname%-browser}-bin")
 options=(!strip)
-source=("${pkgname}-${pkgver}.zip::https://github.com/brave/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}-linux-amd64.zip")
+source=("${pkgname}-${pkgver}.zip::https://github.com/brave/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}-linux-amd64.zip"
+        "${pkgname}.desktop")
 noextract=("${pkgname}-${pkgver}.zip")
-sha512sums=('cee289e20dbe90e785ad057637066c37e538c6adbf825fae8eaf8cd078960167ad5d0c765984ca01d50eb62a6afb379fb9e578d22c5cbd5e0534fab8cec8595a')
+sha512sums=('cee289e20dbe90e785ad057637066c37e538c6adbf825fae8eaf8cd078960167ad5d0c765984ca01d50eb62a6afb379fb9e578d22c5cbd5e0534fab8cec8595a'
+            'cbfe2edc06d5962a8a1f13707c91b03e21cd621ba4a8ad80b7c6143c8fd5302f17fae9e26a9e33c5eca250cf3b223a9219f6b70de12e0f4ff9cf0a0b1e2a05df')
 
 prepare() {
   unzip "${pkgname}-${pkgver}.zip" -d "${pkgname}-${pkgver}"
@@ -29,6 +31,7 @@ package() {
   install -dm0755 "${pkgdir}/usr/bin"
   install -dm0755 "${pkgdir}/opt/${pkgname}"
   install -Dm0644 "LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -Dm0644 "${srcdir}/${pkgname}.desktop" "${pkgdir}/usr/share/applications/${pkgname}.desktop"
 
   for size in 16 24 32 48 64 128 256; do
     install -Dm644 "product_logo_${size}.png" \
@@ -37,5 +40,6 @@ package() {
   rm product_logo*
 
   cp -a ./* "${pkgdir}/opt/${pkgname}/"
+  chmod 4755 "${pkgdir}/opt/${pkgname}/chrome-sandbox"
   ln -s "/opt/${pkgname}/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
 }
