@@ -1,7 +1,7 @@
 # Maintainer: Cthulu201 <cthulu201@duck.com>
 
 pkgname=powershell-bin
-pkgver=7.4.1
+pkgver=7.4.2
 pkgrel=1
 pkgdesc='A cross-platform automation and configuration tool/framework (binary package)'
 arch=('x86_64' 'armv7h' 'aarch64')
@@ -15,19 +15,19 @@ options=(staticlibs !strip)
 install=powershell.install
 source=("${pkgname}-${pkgver}.tar.gz::${url}/releases/download/v${pkgver}/${pkgname%-bin}-${pkgver}-linux-x64.tar.gz")
 noextract=("${pkgname}.tar.gz")
-sha512sums=('3193c28935e474421aabe1f2b1df185fc6f49ed8dc148b60fca9314af48950f0d80aa7872f14830a2c5297ca9c160cf9cfc6b364c94ba72d51da37b9ca590da4')
+sha512sums=('148524245a11ce471ea58c83f4048ee4a4fef4add1071ea66c876ff041bee71322a80d9db8ad70665f168846c6074c96e327b481fb4190cf9f8652788fc32036')
 
 prepare() {
-  tar xf "${pkgname}-${pkgver}.tar.gz" --one-top-level
+	tar xf "${pkgname}-${pkgver}.tar.gz" --one-top-level
 }
 
 package() {
-  cd "${srcdir}/${pkgname}-${pkgver}" || exit
+	cd "${srcdir}/${pkgname}-${pkgver}" || exit
 
-  install -dm0755 "${pkgdir}/usr/bin"
-  install -dm0755 "${pkgdir}/opt/${pkgname}"
-  install -Dm0644 "LICENSE.txt" "${pkgdir}/usr/share/licenses/powershell-bin/LICENSE"
+	install -dm0755 "${pkgdir}/usr/bin"
+	install -dm0755 "${pkgdir}/opt/${pkgname}"
+	install -Dm0644 "LICENSE.txt" "${pkgdir}/usr/share/licenses/powershell-bin/LICENSE"
 
-  cp -a ./* "${pkgdir}/opt/${pkgname}/"
-  ln -s "/opt/${pkgname}/pwsh" "${pkgdir}/usr/bin/pwsh"
+	cp -a ./* "${pkgdir}/opt/${pkgname}/"
+	ln -s "/opt/${pkgname}/pwsh" "${pkgdir}/usr/bin/pwsh"
 }
