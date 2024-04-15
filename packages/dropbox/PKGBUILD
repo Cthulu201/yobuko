@@ -9,7 +9,7 @@
 # https://www.dropbox.com/scl/fo/0eu2dsn07fy5k0gt5fy74/AABbXqKHbY_mobVJhqgfOXYja/Glyph/Dropbox/SVG/DropboxGlyph_Blue.svg
 
 pkgname=dropbox
-pkgver=195.4.4995
+pkgver=196.4.6900
 pkgrel=1
 pkgdesc="A free service that lets you bring your photos, docs, and videos anywhere and share them easily."
 arch=("x86_64")
@@ -19,16 +19,16 @@ groups=('yobuko')
 depends=("libsm" "libxslt" "libxmu" "libxdamage" "libxrender" "libxxf86vm" "libxcomposite" "fontconfig" "dbus")
 makedepends=("gendesk")
 optdepends=('ufw-extras:           ufw rules for dropbox'
-            'perl-file-mimeinfo:   opening dropbox folder on some desktop environments'
-            'xdg-utils:            for "Launch Dropbox Website" and file manager integration'
-            'libappindicator-gtk3: make tray icons themed under some desktop environments like KDE plasma')
+	'perl-file-mimeinfo:   opening dropbox folder on some desktop environments'
+	'xdg-utils:            for "Launch Dropbox Website" and file manager integration'
+	'libappindicator-gtk3: make tray icons themed under some desktop environments like KDE plasma')
 options=('!strip')
 source=("${pkgname}-${pkgver}.tar.gz::https://clientupdates.dropboxstatic.com/dbx-releng/client/dropbox-lnx.x86_64-${pkgver}.tar.gz"
-        "DropboxGlyph_Blue.svg"
-        "terms.txt"
-        "dropbox.service"
-        "dropbox@.service")
-sha512sums=('e4ad740d873dbdad995f05fcfda824f57a8ed4707acab66576284c97c00329ef1dbe2d55980694f2edc8a00fbc6ab20a08ca7afcc12488d9fb188cddc0c3501f'
+	"DropboxGlyph_Blue.svg"
+	"terms.txt"
+	"dropbox.service"
+	"dropbox@.service")
+sha512sums=('a43cdee6cb192085c484cbaf1aa54691ce8dc24eb682c3f2fb8f8ff7135f7590e4dbfeed33ec3afbd5dbfe2bb6fd72a8c136329ebd9e8223fcd5c63819d25429'
             '9202344b904dcd7955e5a355dadf537d1544140d74f8a33bdc40e18e36661e3a474d11cf17613eaebf4e76c170d8413d99abdedfb8635784bcd6892b4b259712'
             'c0cc64e924a70169a33744955e96172f8af6cddb5515c3988df1c7c2aa106b86989de2e1091714976c699b3f9751fb4da5dbffd5157ab9be2bc09c0aeebd8635'
             'edb11b5a07b6a1512a5345d8ce476562fbfd9ec5642f36315a0969a2583f0e6ce371d39d25063af3734f9527ad53abdc29278c046abc2921222777af6f693a4f'
@@ -36,23 +36,23 @@ sha512sums=('e4ad740d873dbdad995f05fcfda824f57a8ed4707acab66576284c97c00329ef1db
 #validpgpkeys=('1C61A2656FB57B7E4DE0F4C1FC918B335044912E') # Dropbox Automatic Signing Key <linux@dropbox.com>
 
 prepare() {
-  gendesk --pkgname="${pkgname}" --pkgdesc="${pkgdesc}" --categories=Network PKGBUILD
+	gendesk --pkgname="${pkgname}" --pkgdesc="${pkgdesc}" --categories=Network PKGBUILD
 }
 
 package() {
-  cd "${srcdir}" || exit
-  # Install director(y/ies)
-  install -dm0755 "${pkgdir}"/opt
-  install -dm0755 "${pkgdir}"/usr/bin
+	cd "${srcdir}" || exit
+	# Install director(y/ies)
+	install -dm0755 "${pkgdir}"/opt
+	install -dm0755 "${pkgdir}"/usr/bin
 
-  cp -dr --no-preserve=ownership "${srcdir}/.dropbox-dist/dropbox-lnx.${arch}-${pkgver}" "${pkgdir}/opt/dropbox"
-  chmod 755 "${pkgdir}"/opt/dropbox/*.so
-  ln -s ../../opt/dropbox/dropbox "${pkgdir}"/usr/bin/dropbox
+	cp -dr --no-preserve=ownership "${srcdir}/.dropbox-dist/dropbox-lnx.${arch}-${pkgver}" "${pkgdir}/opt/dropbox"
+	chmod 755 "${pkgdir}"/opt/dropbox/*.so
+	ln -s ../../opt/dropbox/dropbox "${pkgdir}"/usr/bin/dropbox
 
-  # Install file(s)
-  install -Dm0644 "${srcdir}"/dropbox.desktop -t "${pkgdir}"/usr/share/applications
-  install -Dm0644 "${srcdir}"/DropboxGlyph_Blue.svg "${pkgdir}"/usr/share/pixmaps/dropbox.svg
-  install -Dm0644 "${srcdir}"/terms.txt -t "${pkgdir}"/usr/share/licenses/$pkgname
-  install -Dm0644 "${srcdir}"/dropbox.service -t "${pkgdir}"/usr/lib/systemd/user
-  install -Dm0644 "${srcdir}"/dropbox@.service -t "${pkgdir}"/usr/lib/systemd/system
+	# Install file(s)
+	install -Dm0644 "${srcdir}"/dropbox.desktop -t "${pkgdir}"/usr/share/applications
+	install -Dm0644 "${srcdir}"/DropboxGlyph_Blue.svg "${pkgdir}"/usr/share/pixmaps/dropbox.svg
+	install -Dm0644 "${srcdir}"/terms.txt -t "${pkgdir}"/usr/share/licenses/$pkgname
+	install -Dm0644 "${srcdir}"/dropbox.service -t "${pkgdir}"/usr/lib/systemd/user
+	install -Dm0644 "${srcdir}"/dropbox@.service -t "${pkgdir}"/usr/lib/systemd/system
 }
