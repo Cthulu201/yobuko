@@ -19,7 +19,7 @@ source=("${pkgname}-${pkgver}.zip::https://github.com/brave/${pkgname}/releases/
 	"${pkgname}.desktop")
 noextract=("${pkgname}-${pkgver}.zip")
 sha512sums=('4f450b0a22250bafa0d1404f6238eb9256f5e8b24189e5929bdb72b3754a8198338db296612e89ae95064534de1e185143f3c051358f3b3a2d69567345844140'
-            'cbfe2edc06d5962a8a1f13707c91b03e21cd621ba4a8ad80b7c6143c8fd5302f17fae9e26a9e33c5eca250cf3b223a9219f6b70de12e0f4ff9cf0a0b1e2a05df')
+            '184f9ae63d41d199d3ba4ad69f885cefb7d3ccf464a1a72cf4dafadf65dbfd12e986250641d9364b054367adb79cd695c0227f18c4dda45258214021d5e60c56')
 
 prepare() {
 	unzip "${pkgname}-${pkgver}.zip" -d "${pkgname}-${pkgver}"
