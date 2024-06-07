@@ -1,7 +1,7 @@
 # Maintainer: Cthulu201 <cthulu201@duck.com>
 
 pkgname=nitrokey-app2
-pkgver=2.2.2
+pkgver=2.3.0
 pkgrel=1
 pkgdesc='Application allows to manage Nitrokey 3 devices'
 arch=('x86_64')
@@ -12,21 +12,21 @@ depends=('python' 'python-pynitrokey')
 provides=('nitrokey-app2')
 replaces=("nitrokey-app2-bin")
 options=(staticlibs !strip)
-source=("${pkgname}-${pkgver}.tar.gz::${url}/releases/download/v${pkgver}/${pkgname%2}-v${pkgver}-x64-linux-binary.tar.gz")
-sha512sums=('bfeda69414977f205b2f589417fb0038a2b24b00427b53195777ce37a7423ccab803e074f36f264355f4f556a67973e7e8a3751d34b8d11b384e0a0a3e7cff46')
+source=("${url}/releases/download/v${pkgver}/${pkgname%2}-v${pkgver}-x64-linux-binary")
+sha512sums=('4db89610bc17105d2812576cab2183f256c8c89de016e1b3df55640da1e18ea7100b6f969f021e17bc2f8041b4565a13fa794debacafd8807667dc5814ec715f')
 
 prepare() {
-  tar xf "${pkgname}-${pkgver}.tar.gz" --one-top-level
-  mv "${pkgname}-${pkgver}/nitrokey-app-v${pkgver}-x64-linux-binary" "${pkgname}-${pkgver}/${pkgname}"
-  chmod +x "${pkgname}-${pkgver}/${pkgname}"
+	cd "${srcdir}" || exit
+	mv "nitrokey-app-v${pkgver}-x64-linux-binary" "${pkgname}"
+	chmod +x "${pkgname}"
 }
 
 package() {
-  cd "${srcdir}/${pkgname}-${pkgver}" || exit
+	cd "${srcdir}" || exit
 
-  install -dm0755 "${pkgdir}/usr/bin"
-  install -dm0755 "${pkgdir}/opt/${pkgname}"
+	install -dm0755 "${pkgdir}/usr/bin"
+	install -dm0755 "${pkgdir}/opt/${pkgname}"
 
-  cp -a ./* "${pkgdir}/opt/${pkgname}/"
-  ln -s "/opt/${pkgname}/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
+	cp -a ./* "${pkgdir}/opt/${pkgname}/"
+	ln -s "/opt/${pkgname}/${pkgname}" "${pkgdir}/usr/bin/${pkgname}"
 }
