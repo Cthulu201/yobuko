@@ -9,7 +9,7 @@
 # https://www.dropbox.com/scl/fo/0eu2dsn07fy5k0gt5fy74/AABbXqKHbY_mobVJhqgfOXYja/Glyph/Dropbox/SVG/DropboxGlyph_Blue.svg
 
 pkgname=dropbox
-pkgver=201.3.5495
+pkgver=202.4.5551
 pkgrel=1
 pkgdesc="A free service that lets you bring your photos, docs, and videos anywhere and share them easily."
 arch=("x86_64")
@@ -28,7 +28,7 @@ source=("${pkgname}-${pkgver}.tar.gz::https://clientupdates.dropboxstatic.com/db
 	"terms.txt"
 	"dropbox.service"
 	"dropbox@.service")
-sha512sums=('3ed54650565ef01967dca65648eb718675ecca70baa48341ce400b87dd161e18d42b7d096c3b6a567967ac9a24b68854ce75b3ec61b91d2b6a54311f707ab50c'
+sha512sums=('2d33f9f6d7a8b59f381ed43033c7638a54ae0a84f68845127505f6eb7ef00fbae490d7ba8d4f5e31790a39348612db665591e2785870acf816d60ca6d20097c3'
             '9202344b904dcd7955e5a355dadf537d1544140d74f8a33bdc40e18e36661e3a474d11cf17613eaebf4e76c170d8413d99abdedfb8635784bcd6892b4b259712'
             'c0cc64e924a70169a33744955e96172f8af6cddb5515c3988df1c7c2aa106b86989de2e1091714976c699b3f9751fb4da5dbffd5157ab9be2bc09c0aeebd8635'
             'edb11b5a07b6a1512a5345d8ce476562fbfd9ec5642f36315a0969a2583f0e6ce371d39d25063af3734f9527ad53abdc29278c046abc2921222777af6f693a4f'
